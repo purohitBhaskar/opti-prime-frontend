@@ -1,0 +1,64 @@
+
+
+.left-nav {
+    height: 1024px;
+    width: 80px;
+    padding-top: 20px;
+    margin-left: -10px;
+    background: #0A1517;
+    height: 1024px;;
+    /* background: red; */
+    /* border-right: 2px solid red; */
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    color: blue;
+    align-items: center;
+    /* background: blue; */
+
+    .home-icon {
+        background: url('../../assets/icons/Group.svg');
+        display: flex;
+        width: 36px;
+        height: 36px;
+        justify-content: center;
+        align-items: center;
+        flex-shrink: 0;
+    }
+
+    .icons{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 36px;
+        width:26px ;
+        height: auto;
+        /* background: red; */
+        .icon{
+            width: 26px;
+            height: 26px;
+        }
+        #pie-icon{
+            background: url("../../assets/icons/PieChart.svg");
+        }
+        #download-icon{
+            background: url("../../assets/icons/Download.svg");
+        }
+        #activity-icon{
+            background: url("../../assets/icons/Activity.svg");
+        }
+        #gallery-icon{
+            background: url("../../assets/icons/Image.svg");
+        }
+        #calendar-icon{
+            background: url("../../assets/icons/Calendar.svg");
+        }
+        #fire-icon{
+            background: url("../../assets/icons/Fire.svg");
+        }
+        #settings-icon{
+            margin-top: 274px;
+            background: url("../../assets/icons/Setting1.svg");
+        }
+    }
+}
