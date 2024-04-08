@@ -81,6 +81,7 @@ const GensetChart = () => {
     <div style={{
       width: '1297px',
       height: '120px',
+      background:'#0A1517'
     }}>
       <Line data={data} options={options} />
     </div>
