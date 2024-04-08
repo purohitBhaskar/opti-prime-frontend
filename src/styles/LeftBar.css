@@ -1,0 +1,32 @@
+.left-bar{
+    background: #0A1517;
+    width: 80px;
+    height:100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 30px;
+    div{
+        /* border: 1px solid white; */
+        width: 35px;
+    }
+    .company-logo{
+        height: 36px;
+        width: 36px;
+        background: url("../assets/companylogo.svg");
+    }
+    .middle-logo{
+        margin-top: 51px;
+        display: flex;
+        flex-direction: column;
+        height: 336px;
+        gap: 36px;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .setting-logo{
+        margin-top: 474px;
+    }
+
+}

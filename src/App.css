@@ -1,5 +1,10 @@
-.optiprime{
-  display: grid;
-  grid-template-columns: auto auto;
-  /* gap: -10px; */
+.app{
+  display: flex;
+  flex-direction: row;
+  /* width: 100vw; */
+  /* flex-wrap: wrap; */
+  gap: 30px;
+  .right-section{
+    /* padding: 20px; */
+  }
 }

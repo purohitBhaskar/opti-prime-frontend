@@ -1,0 +1,531 @@
+.main-content {
+    margin-top: 50px;
+    color: white;
+    /* border: 1px solid white; */
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    .top-info-card {
+        height: 327px;
+        width: auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        height: 332px;
+        width: 1300px;
+        background:#0A1517 ;
+        /* padding: 20px 0px; */
+        /* border: 1px solid white; */
+        gap: 34px;
+
+        .parameters-home-data {
+            /* border: 1px solid red; */
+            height: 327px;
+            width: 926px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: transparent;
+
+            .home-img {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 261px;
+                height: 288px;
+                flex-shrink: 0;
+                border-radius: 8px;
+                background: #172629;
+                position: relative;
+                margin-left: 20px;
+
+
+                img {
+                    position: absolute;
+                    mix-blend-mode: hard-light;
+                    background: transparent;
+
+
+                }
+            }
+
+            .parameters-home-stats {
+                height: 230px;
+                width: 488px;
+                /* border: 1px solid white; */
+                padding: -20px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                background: transparent;
+                .parameters-heading {
+                    color: var(--S3, #DDD);
+                    display: flex;
+                    align-items: center;
+                    margin-top: 20px;
+                    background: transparent;
+                    /* H3 */
+                    font-family: Prompt;
+                    font-size: 18px;
+                    font-style: normal;
+                    font-weight: 600;
+                    line-height: 28px;
+                    /* 155.556% */
+                    letter-spacing: 1.8px;
+                    text-transform: uppercase;
+                }
+
+                .parameter-stats {
+                    height: 174px;
+                    /* border: 1px solid white; */
+                    display: flex;
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    background: transparent;
+                    .stat-card {
+                        width: 152px;
+                        height: 72px;
+                        border-right: 2px solid #204D4C;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        flex-direction: column;
+                        gap: 10px;
+                        background: transparent;
+
+                        svg {
+                            height: 28px;
+                            width: 28px;
+
+                        }
+
+                        .logo-title {
+                            height: 28px;
+                            width: auto;
+                            display: flex;
+                            flex-direction: row;
+                            align-items: center;
+                            gap: 10px;
+                            color: var(--P2, #C37C5A);
+                            font-feature-settings: 'clig' off, 'liga' off;
+
+                            /* H5 */
+                            font-family: Poppins;
+                            font-size: 14px;
+                            font-style: normal;
+                            font-weight: 500;
+                            line-height: normal;
+                        }
+
+                        .value-stat {
+                            color: var(--S3, #DDD);
+
+                            /* H1 */
+                            font-family: Poppins;
+                            font-size: 28px;
+                            font-style: normal;
+                            font-weight: 600;
+                            line-height: normal;
+                        }
+
+                    }
+
+                    #power-card,
+                    #frequency-card {
+                        border-right: none;
+                    }
+                }
+            }
+        }
+
+        .power-stat-control {
+            /* border: 1px solid greenyellow; */
+            width: 327px;
+            /* padding: 20px; */
+            border-radius: 8px;
+            background: #0A1517;
+            display: flex;
+            flex-direction: column;
+
+            align-items: center;
+
+            .powergen-heading {
+                color: var(--S3, #DDD);
+                background: transparent;
+                /* margin-left: 30px; */
+                margin-top: 50px;
+                /* H3 */
+                font-family: Prompt;
+                font-size: 18px;
+                font-style: normal;
+                font-weight: 600;
+                line-height: 28px;
+                /* 155.556% */
+                letter-spacing: 1.8px;
+                text-transform: uppercase;
+            }
+
+            .running-time-switch {
+                height: 74px;
+                /* border: 1px solid red; */
+                width: 80%;
+                margin-top: 10px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                background: transparent;
+                /* background: #0A1517; */
+
+                .running-time {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+                    width: 113px;
+                    height: 73px;
+                    background: #0A1517;
+
+                    div {
+                        background: #0A1517;
+                    }
+
+                    /* border: 1px solid white; */
+                    .switch-genset {
+                        background: #0A1517;
+                        /* border: 1px solid red; */
+                        width: 80px;
+
+                        .btn-prop {
+                            /* border: 1px solid red; */
+                        }
+                    }
+
+                    .running-time-heading {
+                        color: var(--P2, #C37C5A);
+                        font-feature-settings: 'clig' off, 'liga' off;
+
+                        /* H5 */
+                        font-family: Poppins;
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 500;
+                        line-height: normal;
+                    }
+
+                    .running-time-value {
+                        color: var(--S3, #DDD);
+
+                        /* H1 */
+                        font-family: Poppins;
+                        font-size: 28px;
+                        font-style: normal;
+                        font-weight: 600;
+                        line-height: normal;
+                    }
+                }
+
+            }
+
+            .energy-flow {
+                /* border: 1px solid greenyellow; */
+                width: 327px;
+                margin-top: 20px;
+                height: 100%;
+                background: url("../assets/energyFlow.png");
+                background-size: cover;
+                background-position: bottom;
+                mix-blend-mode: exclusion;
+            }
+        }
+    }
+
+    .middle-genset-details-card {
+        margin-top: 47px;
+        /* border: 1px solid white; */
+        width: 1300px;
+        height: 400px;
+
+        /*change it later*/
+        .middle-heading-dates-filters {
+            height: 33px;
+            /* border: 1px solid red; */
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+
+            .middle-heading {
+                color: var(--S3, #DDD);
+
+                /* H3 */
+                font-family: Prompt;
+                font-size: 18px;
+                font-style: normal;
+                font-weight: 600;
+                line-height: 28px;
+                /* 155.556% */
+                letter-spacing: 1.8px;
+                text-transform: uppercase;
+            }
+
+            .middle-right-dates-filters {
+                height: 100%;
+                display: flex;
+                gap: 10px;
+                align-items: center;
+
+                div {
+                    display: flex;
+                }
+
+                .days-selection,
+                .calendar-filters {
+                    /* border: 1px solid white;
+                     */
+                    height: 33px;
+                    display: flex;
+                    align-items: center;
+                    /* padding: 11px 7px; */
+                    color: var(--S3, #DDD);
+                    font-feature-settings: 'clig' off, 'liga' off;
+
+                    /* H6 */
+                    font-family: Poppins;
+                    font-size: 12px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+
+                    div {
+                        padding: 7px 12px;
+                    }
+
+                }
+
+
+                .days-selection {
+                    display: flex;
+                    gap: 3px;
+
+                    div {
+                        background: var(--Primary, #062A30);
+                        box-shadow: 0px 0.728px 1.456px 0px rgba(16, 24, 40, 0.05);
+                    }
+
+                }
+
+                .calendar-filters {
+                    display: flex;
+                    gap: 7px;
+
+                    div {
+                        display: flex;
+                        gap: 5px;
+                        align-items: center;
+                        background: var(--Primary, #062A30);
+                        box-shadow: 0px 0.728px 1.456px 0px rgba(16, 24, 40, 0.05);
+                    }
+
+                }
+
+
+
+            }
+        }
+
+        .middle-genset-img {
+            width: 100%;
+            height: 85px;
+            /* border: 1px solid white; */
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            z-index: 999;
+
+            .generator-img {
+                z-index: 99999;
+                background: url('../assets/generator-img.png');
+                width: 121px;
+                height: 100%;
+                margin-left: 30px;
+
+            }
+
+            #generator-2 {
+                background: url("../assets/generator-mirror-img.png");
+                margin-right: 30px;
+            }
+        }
+
+        .genset-card-both {
+            height: 324px;
+            width: 1280px;
+            /* border: 1px solid white; */
+            margin-top: -30px;
+            display: flex;
+            gap: 20px;
+            flex-direction: row;
+
+            .genset-card {
+                height: 324px;
+
+                width: 638px;
+                border-radius: 8px;
+                background: linear-gradient(73deg, rgba(0, 0, 0, 0.00) 50.21%, rgba(25, 152, 139, 0.20) 100%), #0A1517;
+                box-shadow: 0px 24px 47.4px 0px #305F5E;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-evenly;
+                align-items: center;
+
+                .voltage-power-data-tables {
+                    width: 592px;
+                    height: 143px;
+                    display: flex;
+                    flex-direction: row;
+                    /* align-items: center; */
+                    /* margin-top: 55px; */
+                    /* margin-left: 20px; */
+
+                    .voltage-power-data-left,
+                    .voltage-power-data-right {
+                        width: 300px;
+                        border-radius: 8px 0px 0px 8px;
+                        background: var(--Primary, #062A30);
+                        /* display: flex; */
+                        /* flex-direction: row; */
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        justify-content: center;
+
+                        /* gap: 18px; */
+                        div {
+                            /* border: 1px solid white; */
+                            background: transparent;
+                        }
+
+                        .parameter-titles {
+                            width: 212px;
+                            height: 100px;
+                            /* background: transparent; */
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: space-between;
+                            color: var(--S3, #DDD);
+                            font-feature-settings: 'clig' off, 'liga' off;
+                            opacity: 0.6;
+                            /* H5 */
+                            font-family: Poppins;
+                            font-size: 14px;
+                            font-style: normal;
+                            font-weight: 500;
+                            line-height: normal;
+
+                        }
+
+                        .parameter-values {
+                            height: 100px;
+                            width: 27px;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: space-between;
+                            color: var(--S3, #DDD);
+                            font-feature-settings: 'clig' off, 'liga' off;
+
+                            /* H5 */
+                            font-family: Poppins;
+                            font-size: 14px;
+                            font-style: normal;
+                            font-weight: 500;
+                            line-height: normal;
+                        }
+
+
+                    }
+
+                    .voltage-power-data-right {
+                        border-radius: 0px 8px 8px 0px;
+                        background: var(--S1, #204D4C);
+                    }
+                }
+
+                .running-time-pressure-parameters {
+                    width: 600px;
+                    height: 78px;
+                    /* border: 1px solid blue; */
+                    display: flex;
+                    flex-direction: row;
+                    background: transparent;
+
+                    .parameter {
+                        background: transparent;
+                        flex: 1;
+                        border-right: 2px solid var(--S1, #204D4C);
+                        display: flex;
+                        flex-direction: column;
+                        gap: 5px;
+                        /* align-items: center; */
+
+                        div {
+                            background: transparent;
+                            display: flex;
+                            /* align-items: ; */
+                            padding-left: 20px;
+                        }
+
+                        .parameter-title {
+                            color: var(--P2, #C37C5A);
+                            font-feature-settings: 'clig' off, 'liga' off;
+                        
+                            /* H6 */
+                            font-family: Poppins;
+                            font-size: 12px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: normal;
+                        }
+
+                        .parameter-value {
+                            color: var(--S3, #DDD);
+                            font-family: Poppins;
+                            font-size: 18px;
+                            font-style: normal;
+                            font-weight: 600;
+                            line-height: 28px;
+                            /* 155.556% */
+                        }
+                    }
+                    #lube-oil-pressure{
+                        /* border: 1px solid white; */
+                        padding: 0;
+                    }
+
+                    #lube-oil-pressure {
+                        border-right: none;
+                        .parameter-title{
+                            font-size: 10px;
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+    .bottom-graph-card{
+        margin-top: 50px;
+        width: 89vw;
+height: 120px;
+flex-shrink: 0;
+border-radius: 8px;
+background: #0A1517;   
+.genset-chart{
+    width: auto;
+    height: 220px;
+}
+
+
+    }
+}

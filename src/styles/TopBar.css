@@ -1,0 +1,61 @@
+.top-bar {
+    /* background: red; */
+    height: 80px;
+    width: 90vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
+
+    .search-box {
+        display: flex;
+        height: 36px;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 12px;
+        border-radius: 8px;
+        background: #0A1517;
+        /* padding: 12px; */
+        width: 462px;
+
+        input {
+            /* width: 100%; */
+            /* height: 100%; */
+            border: none;
+            color: var(--S3, #DDD);
+            font-feature-settings: 'clig' off, 'liga' off;
+            background: #0A1517;
+
+            /* H5 */
+            font-family: Poppins;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+        }
+    }
+
+    .alerts-profile-icon {
+        width: 86px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .alerts {
+            border-radius: 50%;
+            background: #062A30;
+            svg{
+
+            }
+
+        }
+
+        .profile-icon {
+            border-radius: 50%;
+        }
+    }
+
+}
