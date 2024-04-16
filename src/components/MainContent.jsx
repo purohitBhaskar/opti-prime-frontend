@@ -466,7 +466,7 @@ const MainContent = () => {
                         </div>
                     </Link>
 
-                    <div className="genset-card-route" id="genset-2">
+                    <Link to="/generator2" className="genset-card-route" id="genset-2">
                         <div className="genset-icon-parameters-cards">
                             <div className="genset-img-generator"></div>
                             <div className="parameter-card">
@@ -609,7 +609,7 @@ const MainContent = () => {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </Link>
                 </div>
             </div>
             <div className="bottom-graph-card">
