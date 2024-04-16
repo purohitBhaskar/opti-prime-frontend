@@ -1,10 +1,11 @@
 import React from 'react'
 import "../styles/GeneratorOne.css"
-import SwitchButton from './SwitchButton'
+// import SwitchButton from './SwitchButton'
 import renderLineChart from './PowerChart'
 import PowerChart from './PowerChart'
 import AlertsAccordion from './AlertsAccordion'
 import { Link } from 'react-router-dom'
+import { Switch } from '@chakra-ui/react'
 const GeneratorTwo = () => {
   return (
     <div className='generator1-main'>
@@ -26,7 +27,7 @@ const GeneratorTwo = () => {
                   <div className="battery-value">32%</div>
                 </div>
                 <div className="generator-switch">
-                  <SwitchButton/>
+                  <Switch size='lg'/>
                 </div>
               </div>
             </div>

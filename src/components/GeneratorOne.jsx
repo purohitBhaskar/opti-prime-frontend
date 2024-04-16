@@ -1,11 +1,16 @@
 import React from 'react'
 import "../styles/GeneratorOne.css"
-import SwitchButton from './SwitchButton'
+// import SwitchButton from './SwitchButton'
 import renderLineChart from './PowerChart'
 import PowerChart from './PowerChart'
 import AlertsAccordion from './AlertsAccordion'
 import { Link } from 'react-router-dom'
+import { Switch, useStatStyles } from '@chakra-ui/react'
 const GeneratorOne = () => {
+  const [buttonState, setButtonState] = useState(false) 
+  const handleSwitchOn = ()=>{
+    // setButtonState(true)
+  }
   return (
     <div className='generator1-main'>
       <div className="main-left">
@@ -27,7 +32,7 @@ const GeneratorOne = () => {
                   <div className="battery-value">32%</div>
                 </div>
                 <div className="generator-switch">
-                  <SwitchButton/>
+                  <Switch colorScheme="green" size="lg" onClick={handleSwitchOn}/>
                 </div>
               </div>
             </div>

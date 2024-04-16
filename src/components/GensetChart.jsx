@@ -16,10 +16,11 @@ const GensetChart = () => {
     datasets:[
       {
         data: [null, 12.27,12.286, 12.278, 12.29,12.27,12.31,12.31,12.31,12.25,12.27,12.279,12.281,12.3],
-        backgroundColor: 'transparent',
+        backgroundColor: '#0A1517',
         borderColor: '#C37C5A',
         pointBorderColor: 'transparent',
-        pointBorderWidth: 4,
+        // pointBorderWidth: 4,
+        pointRadius:0,
         tension: 0,
       }
     ]
@@ -31,12 +32,17 @@ const GensetChart = () => {
     },
     layout:{
       padding:{
-        top:90,
-        right:10,
-        bottom:110,
-        left:10
-      }
+        // top:90,
+        // right:10,
+        // bottom:110,
+        // left:10
+        
+      },
+    
     },
+    maintainAspectRatio: false, // Set maintainAspectRatio to false
+    aspectRatio: undefined, // Set aspectRatio to NaN
+    height: 220, // Set the height of the chart
     scales:{
       x:{
         min: false, // Adjusted min value to add space from origin
@@ -79,9 +85,8 @@ const GensetChart = () => {
 
   return (
     <div style={{
-      width: '1297px',
-      height: '120px',
-      background:'#0A1517'
+      width: '100%', // Adjusted width to 100%
+      height: '220px', // Adjusted height to 100%
     }}>
       <Line data={data} options={options} />
     </div>

@@ -1,11 +1,29 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import "../styles/MainContent.css"
 import gensetHome from "../assets/genset-home.png"
-import CustomizedSwitches from './SwitchButton'
-import SwitchButton from './SwitchButton'
 import { BrowserRouter as Router, Link, Routes } from 'react-router-dom'
 import GensetChart from './GensetChart'
+import SwitchButton from './SwitchButton'
+import { Switch, Modal, ModalOverlay, ModalContent, ModalBody, ModalCloseButton } from '@chakra-ui/react'
+
 const MainContent = () => {
+    const [isSwitchOn, setIsSwitchOn] = useState(false)
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [isGensetStarted, setIsGensetStarted] = useState(false)
+
+    const handleSwitchToggle = () => {
+        setIsSwitchOn(!isSwitchOn)
+        setIsModalOpen(true)
+    }
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false)
+    }
+
+    const handleYesButtonClick = () => {
+        setIsGensetStarted(true)
+    }
+
     return (
         <div className='main-content'>
             <div className="top-info-card">
@@ -121,9 +139,156 @@ const MainContent = () => {
                             <div className="running-time-heading">Running Time</div>
                             <div className="running-time-value">30 mins</div>
                         </div>
-                        <div className="switch-genset">
-                            <SwitchButton className="button-prop" />
-                        </div>
+
+                        <Switch size='lg' colorScheme='green' isChecked={isSwitchOn} onChange={handleSwitchToggle} />
+                        {
+                            isModalOpen && (
+                                <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+                                    <ModalOverlay />
+                                    <ModalContent >
+                                        <ModalContent w='778px' h='350px' borderRadius='8px'>
+                                            <ModalBody color='white' bg='#0F5B53' display='flex' flexDir='column' alignItems='center' justifyContent='space-between'>
+                                                <div className="top-icon-close-btn"
+                                                    style={{
+                                                        width: "100%",
+                                                        background: "transparent",
+                                                        display: "flex",
+                                                        flexDirection: "row",
+                                                        justifyContent: "space-between",
+                                                        alignItems: "center"
+
+                                                    }}
+                                                >
+
+                                                    <div className="close-btn" style={{ background: "transparent" }}
+                                                        onClick={handleCloseModal}
+                                                    >X</div>
+                                                </div>
+                                                <div className="genset-img-tile-desc" style={{
+                                                    display: "flex",
+                                                    flexDirection: "row",
+                                                    alignItems: "center",
+                                                    justifyContent: "space-between",
+                                                    gap: "10px",
+                                                    background: "#0F5B53"
+                                                }} >
+                                                    <img src={gensetHome}
+                                                        style={{
+                                                            background: "transparent",
+                                                            mixBlendMode: 'hard-light'
+                                                        }}
+                                                        alt="" />
+
+                                                    <div className="title-desc" style={{
+                                                        background: '#0F5B53'
+                                                    }}>
+                                                        <div className="title" style={{
+                                                            background: '#0F5B53'
+                                                        }}>Are you sure?</div>
+                                                        <div className="desc" style={{
+                                                            background: '#0F5B53'
+                                                        }}>Do you really want to Start the genset?</div>
+                                                    </div>
+
+
+
+
+                                                </div>
+                                                <div className="cancel-yes-btn"
+                                                    style={{
+                                                        display: "flex",
+                                                        flexDirection: "row",
+                                                        justifyContent: "space-between",
+                                                        width: "100%",
+                                                        gap: "20px",
+                                                        background: "transparent"
+                                                    }}
+                                                >
+                                                    <button className='cancel-btn'
+                                                        style={{
+                                                            display: "flex",
+                                                            padding: "10px 20px",
+                                                            justifyContent: "center",
+                                                            alignItems: "center",
+                                                            gap: "6px",
+                                                            borderRadius: "8px",
+                                                            border: "1px solid var(--Grey-2, #CACCCC)",
+                                                            background: "var(--Grey-2, #CACCCC)",
+                                                            boxShadow: "0px 1px 2px 0px rgba(16, 24, 40, 0.05)",
+                                                            width: "100%"
+                                                        }}
+                                                        onClick={handleCloseModal}
+
+                                                    >Cancel</button>
+                                                    <button className='yes-btn'
+                                                        style={{
+                                                            display: "flex",
+                                                            padding: "10px 20px",
+                                                            justifyContent: "center",
+                                                            alignItems: "center",
+                                                            gap: "6px",
+                                                            borderRadius: "8px",
+                                                            border: "1px solid var(--Grey-2, #CACCCC)",
+                                                            background: "var(--Grey-2, #19988B)",
+                                                            boxShadow: "0px 1px 2px 0px rgba(16, 24, 40, 0.05)",
+                                                            width: "100%"
+                                                        }}
+
+                                                        onClick={handleYesButtonClick}
+
+                                                    >Yes</button>
+                                                </div>
+
+
+
+
+                                            </ModalBody>
+                                        </ModalContent>
+                                    </ModalContent>
+                                </Modal>
+
+                            )
+                        }
+
+                        {isGensetStarted && (
+                            <Modal isOpen={isGensetStarted} onClose={() => setIsGensetStarted(false)}>
+                                <ModalOverlay />
+                                <ModalContent w='778px' h='350px' borderRadius='8px'>
+                                    <ModalCloseButton color="#fff" />
+                                    <ModalBody color='white' bg='#0F5B53' display='flex' flexDir='column' alignItems='center' justifyContent='space-between'>
+                                        <div className="genset-img" style={{ background: "transparent" }}>
+                                            <img src={gensetHome} alt=""
+                                                style={{
+                                                    background: "none",
+                                                    mixBlendMode: "hard-light"
+                                                }}
+                                            />
+                                        </div>
+                                        <div className="tick-icon">
+                                            <svg style={{background:"#0F5B53", border:"none"}} width="57" height="56" viewBox="0 0 57 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <rect x="4.5" y="4" width="48" height="48" rx="24" fill="#147A6F" />
+                                                <rect x="4.5" y="4" width="48" height="48" rx="24" stroke="#0F5B53" stroke-width="8" />
+                                                <path d="M36.5 22L25.5 33L20.5 28" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                            </svg>
+
+                                        </div>
+                                        <div className="generator-start"
+                                            style={{
+                                                background:"none"
+                                            }}
+                                        
+                                        >Generator Started Successfully!</div>
+                                        <div className="description"
+                                            style={{
+                                                background:"none"
+                                            }}
+                                        >You can switch off anytime by clicking the power control in dashboard</div>
+                                    </ModalBody>
+                                </ModalContent>
+                            </Modal>
+                        )}
+
+
                     </div>
                     <div className="energy-flow">
 
@@ -155,207 +320,303 @@ const MainContent = () => {
                         </div>
                     </div>
                 </div>
-                <div className="middle-genset-img">
-                    <div className="generator-img" id='generator-1'></div>
-                    <div className="generator-img" id="generator-2"></div>
-                </div>
-                <div className="genset-card-both">
-                    <Link to='/generator1' className="genset-card" id="genset-1">
-                        <div className="voltage-power-data-tables">
-                            <div className="voltage-power-data-left">
-                                <div className="parameter-titles">
-                                    <div className="title" id="voltage">Voltage (V)</div>
-                                    <div className="title" id="power-kw">Power (kW)</div>
-                                    <div className="title" id="power-kva">Power (kVA)</div>
+                <div className="middle-card-row">
+                    <Link to='/generator1' className="genset-card-route" id="genset-1">
+                        <div className="genset-icon-parameters-cards">
+                            <div className="genset-img-generator"></div>
+                            <div className="parameter-card">
+                                <div className="parameter-logo">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 56 47" fill="none">
+                                        <path d="M28 37.0463C37.9668 37.0463 46.0466 28.9665 46.0466 18.9996C46.0466 9.03275 37.9668 0.953003 28 0.953003C18.0331 0.953003 9.95334 9.03275 9.95334 18.9996C9.95334 28.9665 18.0331 37.0463 28 37.0463Z" fill="url(#paint0_linear_2337_1073)" />
+                                        <path d="M22.5976 26.7219L29.158 20.1616C29.4668 19.8537 29.6407 19.4252 29.6407 18.9996V9.15601C29.6407 8.2492 28.9069 7.51541 28.0001 7.51541C27.0932 7.51541 26.3595 8.2492 26.3595 9.15601V18.3203L20.2777 24.402C19.6369 25.0428 19.6369 26.0811 20.2777 26.7219C20.9185 27.3629 21.9566 27.3629 22.5976 26.7219Z" fill="#0A3B36" />
+                                        <defs>
+                                            <linearGradient id="paint0_linear_2337_1073" x1="28" y1="37.0463" x2="28" y2="0.953003" gradientUnits="userSpaceOnUse">
+                                                <stop stop-color="#00B59C" />
+                                                <stop offset="1" stop-color="#9CFFAC" />
+                                            </linearGradient>
+                                        </defs>
+                                    </svg>
                                 </div>
-                                <div className="parameter-values">
-                                    <div className="value" id="voltage">99</div>
-                                    <div className="value" id="voltage">99</div>
-                                    <div className="value" id="voltage">99</div>
+                                <div className="parameter-stats">
+                                    <div className="paramter-heading">Running time</div>
+                                    <div className="paramter-value">30 mins</div>
                                 </div>
                             </div>
-                            <div className="voltage-power-data-right">
-                                <div className="parameter-titles">
-                                    <div className="title" id="voltage">Voltage (V)</div>
-                                    <div className="title" id="power-kw">Power (kW)</div>
-                                    <div className="title" id="power-kva">Power (kVA)</div>
+                            <div className="parameter-card">
+                                <div className="parameter-logo">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 37 32" fill="none">
+                                        <path d="M25.1357 25.0772C25.8528 25.5929 26.891 25.4407 27.4204 24.6894C30.6728 20.112 30.1474 13.9036 26.1707 9.92698C21.8385 5.5883 14.2634 5.5883 9.93102 9.92698C5.95447 13.9035 5.42893 20.112 8.6813 24.6894C9.20357 25.428 10.2386 25.5994 10.966 25.0772C11.7063 24.5516 11.8793 23.5279 11.3538 22.7893C9.03382 19.5208 9.41193 15.0876 12.251 12.2469C15.3464 9.14834 20.7553 9.14834 23.8507 12.2469C26.6898 15.0876 27.0679 19.5208 24.7479 22.7893C24.2225 23.5279 24.3955 24.5517 25.1357 25.0772ZM7.61118 30.8082C8.252 30.1674 8.252 29.1291 7.61118 28.4882C1.83596 22.7164 1.84153 13.3717 7.61118 7.6055C10.3989 4.81611 14.1064 3.28125 18.0509 3.28125C21.9954 3.28125 25.7029 4.81611 28.4906 7.6055C34.2659 13.3773 34.2603 22.722 28.4906 28.4882C27.8498 29.1291 27.8498 30.1674 28.4906 30.8082C29.1316 31.449 30.1698 31.449 30.8106 30.8082C37.8659 23.7561 37.8652 12.3368 30.8106 5.28555C27.4044 1.87611 22.8703 0 18.0509 0C13.2315 0 8.69738 1.87611 5.29122 5.28555C-1.76412 12.3376 -1.76336 23.7569 5.29122 30.8082C5.93205 31.449 6.97024 31.449 7.61118 30.8082Z" fill="url(#paint0_linear_2337_1081)" />
+                                        <path d="M17.9999 22.9688C20.7182 22.9688 22.9218 20.7652 22.9218 18.0469C22.9218 15.3286 20.7182 13.125 17.9999 13.125C15.2816 13.125 13.078 15.3286 13.078 18.0469C13.078 20.7652 15.2816 22.9688 17.9999 22.9688Z" fill="url(#paint1_linear_2337_1081)" />
+                                        <defs>
+                                            <linearGradient id="paint0_linear_2337_1081" x1="18.0509" y1="56" x2="18.0509" y2="0" gradientUnits="userSpaceOnUse">
+                                                <stop stop-color="#00B59C" />
+                                                <stop offset="1" stop-color="#9CFFAC" />
+                                            </linearGradient>
+                                            <linearGradient id="paint1_linear_2337_1081" x1="17.9999" y1="22.9688" x2="17.9999" y2="13.125" gradientUnits="userSpaceOnUse">
+                                                <stop stop-color="#ADDCFF" />
+                                                <stop offset="0.5028" stop-color="#EAF6FF" />
+                                                <stop offset="1" stop-color="#EAF6FF" />
+                                            </linearGradient>
+                                        </defs>
+                                    </svg>
                                 </div>
-                                <div className="parameter-values">
-                                    <div className="value" id="voltage">99</div>
-                                    <div className="value" id="voltage">99</div>
-                                    <div className="value" id="voltage">99</div>
+                                <div className="parameter-stats">
+                                    <div className="paramter-heading">Running time</div>
+                                    <div className="paramter-value">30 mins</div>
+                                </div>
+                            </div>
+                            <div className="parameter-card">
+                                <div className="parameter-logo">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 40 30" fill="none">
+                                        <path d="M20 0.9375L17.6562 5.625L20 10.3125C22.9062 10.3125 25.5312 11.4844 27.4531 13.4062L32.8906 12.6562L34.0859 6.77344C30.4765 3.16406 25.4845 0.9375 20 0.9375ZM5.91406 6.77344C2.30469 10.3829 0 15.3749 0 20.8594C0 21.5157 0.515547 22.0312 1.17188 22.0312H8.28125C8.93758 22.0312 9.45312 21.5157 9.45312 20.8594C9.45312 17.9531 10.625 15.3281 12.5469 13.4062L11.2341 7.40602L5.91406 6.77344ZM19.0364 13.1621C18.2193 14.3454 14.1406 20.3913 14.1406 23.2031C14.1406 26.4338 16.7682 29.0625 20 29.0625C23.2318 29.0625 25.8594 26.4338 25.8594 23.2031C25.8594 20.3913 21.7807 14.3454 20.9636 13.1621C20.5288 12.528 19.4713 12.528 19.0364 13.1621Z" fill="url(#paint0_linear_2337_1091)" />
+                                        <path d="M34.086 6.77344L27.4532 13.4062C29.3751 15.3281 30.5469 17.9531 30.5469 20.8594C30.5469 21.5157 31.0625 22.0312 31.7188 22.0312H38.8282C39.4845 22.0312 40.0001 21.5157 40.0001 20.8594C40.0001 15.3749 37.6954 10.3829 34.086 6.77344ZM20.0001 0.9375C14.5156 0.9375 9.52358 3.16406 5.91412 6.77344L12.5469 13.4062C14.4688 11.4844 17.0938 10.3125 20.0001 10.3125V0.9375ZM20.0001 22.0312C19.3529 22.0312 18.8282 22.5559 18.8282 23.2031C18.8282 23.8503 19.3529 24.375 20.0001 24.375C20.6472 24.375 21.1719 23.8503 21.1719 23.2031C21.1719 22.5559 20.6472 22.0312 20.0001 22.0312Z" fill="url(#paint1_linear_2337_1091)" />
+                                        <defs>
+                                            <linearGradient id="paint0_linear_2337_1091" x1="17.043" y1="29.0625" x2="17.043" y2="0.9375" gradientUnits="userSpaceOnUse">
+                                                <stop stop-color="#00B59C" />
+                                                <stop offset="1" stop-color="#9CFFAC" />
+                                            </linearGradient>
+                                            <linearGradient id="paint1_linear_2337_1091" x1="22.9571" y1="24.375" x2="22.9571" y2="0.9375" gradientUnits="userSpaceOnUse">
+                                                <stop stop-color="#C3FFE8" />
+                                                <stop offset="0.9973" stop-color="#F0FFF4" />
+                                            </linearGradient>
+                                        </defs>
+                                    </svg>
+                                </div>
+                                <div className="parameter-stats">
+                                    <div className="paramter-heading">Running time</div>
+                                    <div className="paramter-value">30 mins</div>
+                                </div>
+                            </div>
+                            <div className="parameter-card">
+                                <div className="parameter-logo">
+                                    <svg width="50" height="50" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="56" height="56" rx="2" fill="url(#paint0_linear_2337_1088)" />
+                                        <path d="M35.1818 33.944C33.0214 33.944 31.2627 35.7016 31.2627 37.8631C31.2627 40.0245 33.0214 41.7822 35.1818 41.7822C37.3423 41.7822 39.1009 40.0245 39.1009 37.8631C39.1009 35.7016 37.3424 33.944 35.1818 33.944ZM34.2021 28.9144H36.1616C37.2439 28.9144 38.1212 28.0371 38.1212 26.9549V14.2178C38.1212 12.597 36.8026 11.2784 35.1818 11.2784C33.561 11.2784 32.2425 12.597 32.2425 14.2178V26.9549C32.2425 28.0371 33.1199 28.9144 34.2021 28.9144Z" fill="url(#paint1_linear_2337_1088)" />
+                                        <path d="M38.1212 31.6904V26.9549H32.2425V31.6904C29.1659 33.1601 27.5592 36.6873 28.6956 40.1361C29.5204 42.6898 32.0051 44.7215 35.1818 44.7215C38.9644 44.7215 42.0403 41.6523 42.0403 37.8631C42.0403 35.2372 40.4922 32.827 38.1212 31.6904ZM35.1818 40.8024C33.5553 40.8024 32.2425 39.4894 32.2425 37.8631C32.2425 36.2366 33.5553 34.9237 35.1818 34.9237C36.8084 34.9237 38.1212 36.2366 38.1212 37.8631C38.1212 39.4894 36.8085 40.8024 35.1818 40.8024ZM28.1148 27.0267L29.4601 27.8036C29.931 28.074 30.5308 27.9121 30.7978 27.4448C31.0695 26.976 30.9088 26.377 30.4399 26.1063L29.0944 25.3293L29.487 25.2241C30.0094 25.0844 30.3194 24.5467 30.1797 24.0242C30.0381 23.5008 29.5099 23.1918 28.978 23.3315L26.6946 23.9436L25.5493 23.2822L24.7411 22.056L25.5492 20.83L26.6945 20.1686L28.9779 20.7806C29.5024 20.9205 30.0383 20.6097 30.1796 20.0879C30.3193 19.5655 30.0093 19.0278 29.4869 18.888L29.0944 18.7828L30.4399 18.0059C30.9087 17.735 31.0695 17.1361 30.7977 16.6673C30.5279 16.1965 29.9251 16.0387 29.4601 16.3085L28.1148 17.0855L28.22 16.6931C28.3597 16.1707 28.0497 15.633 27.5273 15.4933C27.003 15.3546 26.4691 15.6627 26.3256 16.186L25.7128 18.4724L24.5698 19.1324L23.103 19.2201L22.4447 17.9051V16.5831L24.1172 14.9106C24.4999 14.5279 24.4999 13.9078 24.1172 13.5251C23.7345 13.1424 23.1144 13.1424 22.7317 13.5251L22.4447 13.8122V12.2582C22.4447 11.7167 22.0064 11.2784 21.4649 11.2784C20.9233 11.2784 20.4851 11.7167 20.4851 12.2582V13.8121L20.198 13.525C19.8153 13.1423 19.1953 13.1423 18.8126 13.525C18.4299 13.9077 18.4299 14.5278 18.8126 14.9105L20.4851 16.583V17.905L19.8268 19.2199L18.36 19.1323L17.217 18.4723L16.6042 16.1859C16.4627 15.6626 15.9346 15.3535 15.4026 15.4932C14.8802 15.6329 14.5702 16.1706 14.7099 16.693L14.8151 17.0853L13.4698 16.3084C13.0029 16.0415 12.402 16.1984 12.1322 16.6672C11.8605 17.1361 12.0212 17.735 12.4901 18.0058L13.8356 18.7828L13.443 18.888C12.9206 19.0277 12.6106 19.5654 12.7503 20.0878C12.8916 20.6099 13.4278 20.9204 13.952 20.7805L16.2354 20.1685L17.3807 20.8299L18.1888 22.056L17.3808 23.282L16.2355 23.9434L13.9521 23.3314C13.4297 23.1927 12.8939 23.5017 12.7504 24.0241C12.6106 24.5465 12.9206 25.0842 13.4431 25.2239L13.8356 25.3292L12.4901 26.1062C12.0212 26.377 11.8605 26.9759 12.1322 27.4448C12.3989 27.9115 12.9982 28.0743 13.4698 27.8036L14.8151 27.0266L14.7099 27.4189C14.5436 28.0411 15.0123 28.6522 15.6572 28.6522C16.0896 28.6522 16.4858 28.3643 16.6044 27.926L17.2172 25.6396L18.3602 24.9796L19.827 24.892L20.4852 26.2069V27.529L18.8128 29.2014C18.4301 29.5841 18.4301 30.2042 18.8128 30.5869C19.1955 30.9696 19.8155 30.9696 20.1982 30.5869L20.4853 30.2998V31.8538C20.4853 32.3953 20.9235 32.8335 21.4651 32.8335C22.0066 32.8335 22.4449 32.3953 22.4449 31.8538V30.2999L22.7319 30.587C23.1146 30.9697 23.7346 30.9697 24.1174 30.587C24.5001 30.2043 24.5001 29.5842 24.1174 29.2015L22.4449 27.529V26.207L23.1032 24.8921L24.57 24.9797L25.7129 25.6397L26.3258 27.9261C26.4671 28.4482 27.0032 28.7586 27.5275 28.6188C28.0499 28.4791 28.3599 27.9414 28.2202 27.419L28.1148 27.0267ZM43.0201 24.9953H41.0605C40.519 24.9953 40.0807 25.4335 40.0807 25.9751C40.0807 26.5167 40.519 26.9549 41.0605 26.9549H43.0201C43.5616 26.9549 43.9998 26.5167 43.9998 25.9751C43.9998 25.4335 43.5616 24.9953 43.0201 24.9953ZM43.0201 21.0762H41.0605C40.519 21.0762 40.0807 21.5144 40.0807 22.056C40.0807 22.5975 40.519 23.0358 41.0605 23.0358H43.0201C43.5616 23.0358 43.9998 22.5975 43.9998 22.056C43.9998 21.5144 43.5616 21.0762 43.0201 21.0762ZM43.0201 17.1571H41.0605C40.519 17.1571 40.0807 17.5953 40.0807 18.1369C40.0807 18.6784 40.519 19.1167 41.0605 19.1167H43.0201C43.5616 19.1167 43.9998 18.6784 43.9998 18.1369C43.9998 17.5953 43.5616 17.1571 43.0201 17.1571ZM41.0605 15.1976H43.0201C43.5616 15.1976 43.9998 14.7593 43.9998 14.2178C43.9998 13.6762 43.5616 13.238 43.0201 13.238H41.0605C40.519 13.238 40.0807 13.6762 40.0807 14.2178C40.0807 14.7593 40.519 15.1976 41.0605 15.1976Z" fill="url(#paint2_linear_2337_1088)" />
+                                        <defs>
+                                            <linearGradient id="paint0_linear_2337_1088" x1="28" y1="0" x2="28" y2="56" gradientUnits="userSpaceOnUse">
+                                                <stop stop-color="#0A3D38" />
+                                                <stop offset="1" stop-color="#051E1C" />
+                                            </linearGradient>
+                                            <linearGradient id="paint1_linear_2337_1088" x1="35.1818" y1="41.7822" x2="35.1818" y2="11.2784" gradientUnits="userSpaceOnUse">
+                                                <stop stop-color="#C3FFE8" />
+                                                <stop offset="0.9973" stop-color="#F0FFF4" />
+                                            </linearGradient>
+                                            <linearGradient id="paint2_linear_2337_1088" x1="27.9999" y1="44.7215" x2="27.9999" y2="11.2784" gradientUnits="userSpaceOnUse">
+                                                <stop stop-color="#00B59C" />
+                                                <stop offset="1" stop-color="#9CFFAC" />
+                                            </linearGradient>
+                                        </defs>
+                                    </svg>
+
+                                </div>
+                                <div className="parameter-stats">
+                                    <div className="paramter-heading">Running time</div>
+                                    <div className="paramter-value">30 mins</div>
+                                </div>
+                            </div>
+                            <div className="parameter-card">
+                                <div className="parameter-logo">
+                                    <svg width="40" height="40" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <g id="Group">
+                                            <path id="Vector" d="M17.2148 39C16.5429 39 15.9961 38.4533 15.9961 37.7812V34.8177C15.9961 34.3409 15.6898 33.9305 15.234 33.7962C14.2559 33.5046 13.3043 33.1106 12.4053 32.6253C12.2524 32.5423 12.0789 32.4984 11.9032 32.4984C11.6204 32.4984 11.344 32.6119 11.145 32.8097L9.04968 34.9039C8.81948 35.1341 8.51343 35.261 8.18802 35.261C7.86261 35.261 7.55655 35.1341 7.32636 34.9039L4.095 31.6726C3.61992 31.1975 3.61992 30.4243 4.095 29.9492L6.19049 27.8548C6.52663 27.5177 6.60029 27.0104 6.37376 26.5927C5.89098 25.7016 5.49778 24.7507 5.20498 23.7662C5.07168 23.3174 4.65121 23.0039 4.18229 23.0039H1.21875C0.546762 23.0039 0 22.4572 0 21.7852V17.2148C0 16.5428 0.546762 15.9961 1.21875 15.9961H4.18229C4.65844 15.9961 5.06947 15.6893 5.20498 15.2327C5.49824 14.2479 5.89212 13.2963 6.37597 12.404C6.59732 11.9936 6.52107 11.4758 6.19041 11.1452L4.09492 9.05082C3.86428 8.82009 3.73753 8.5135 3.73798 8.18756C3.73844 7.86254 3.86527 7.55701 4.09492 7.32743L7.32629 4.09607C7.55648 3.8658 7.86254 3.73905 8.18794 3.73905C8.51335 3.73905 8.81941 3.86587 9.0496 4.09607L11.1451 6.19041C11.3491 6.39311 11.6165 6.50485 11.8981 6.50485C12.0736 6.50485 12.2497 6.45983 12.4075 6.37475C13.3033 5.88991 14.2542 5.49595 15.2337 5.20391C15.6826 5.07091 15.9961 4.65083 15.9961 4.18229V1.21875C15.9961 0.546762 16.5429 0 17.2148 0H21.7852C22.4571 0 23.0039 0.546762 23.0039 1.21875V4.18229C23.0039 4.65905 23.3102 5.06954 23.766 5.20383C24.7441 5.49542 25.6957 5.88938 26.5947 6.37475C26.7468 6.45808 26.9201 6.50203 27.0962 6.50203C27.3803 6.50203 27.6568 6.38846 27.8548 6.19041L29.9503 4.09607C30.1805 3.8658 30.4866 3.73905 30.812 3.73905C31.1374 3.73905 31.4434 3.86587 31.6736 4.09607L34.905 7.32743C35.3801 7.80259 35.3801 8.57566 34.905 9.05082L32.8095 11.1452C32.4734 11.4823 32.3997 11.9896 32.6262 12.4073C33.109 13.2984 33.5022 14.2493 33.795 15.2338C33.9283 15.6826 34.3489 15.9961 34.8177 15.9961H37.7812C38.4532 15.9961 39 16.5428 39 17.2148V21.7852C39 22.4572 38.4532 23.0039 37.7812 23.0039H34.8177C34.3416 23.0039 33.9306 23.3107 33.795 23.7673C33.5018 24.7521 33.1079 25.7037 32.624 26.5959C32.4027 27.0064 32.4789 27.5241 32.8096 27.8548L34.9051 29.9491C35.1357 30.1798 35.2625 30.4864 35.262 30.8124C35.2616 31.1374 35.1347 31.4429 34.9051 31.6725L31.6737 34.9039C31.4435 35.1341 31.1375 35.261 30.8121 35.261C30.4867 35.261 30.1806 35.1341 29.9504 34.9039L27.8549 32.8095C27.6524 32.607 27.3853 32.4955 27.1028 32.4955C26.9268 32.4955 26.7504 32.5404 26.5925 32.6252C25.6968 33.11 24.7459 33.5039 23.7664 33.7959C23.3174 33.9289 23.004 34.349 23.004 34.8176V37.7812C23.004 38.4533 22.4572 39 21.7852 39H17.2148Z" fill="url(#paint0_linear_2337_1099)" />
+                                            <path id="Vector_2" d="M19.5001 29.8848C15.664 29.8848 12.5442 26.7638 12.5442 22.9277C12.5442 21.8309 12.8053 20.7386 13.2985 19.7678L18.3932 9.79374C18.8172 8.96133 20.183 8.96133 20.6069 9.79374L25.6994 19.7678C26.1948 20.7386 26.4559 21.8309 26.4559 22.9277C26.4559 26.7638 23.3362 29.8848 19.5001 29.8848Z" fill="#030F0E" />
+                                        </g>
+                                        <defs>
+                                            <linearGradient id="paint0_linear_2337_1099" x1="19.5" y1="39" x2="19.5" y2="0" gradientUnits="userSpaceOnUse">
+                                                <stop stop-color="#00B59C" />
+                                                <stop offset="1" stop-color="#9CFFAC" />
+                                            </linearGradient>
+                                        </defs>
+                                    </svg>
+
+                                </div>
+                                <div className="parameter-stats">
+                                    <div className="paramter-heading">Running time</div>
+                                    <div className="paramter-value">30 mins</div>
                                 </div>
                             </div>
                         </div>
-                        <div className="running-time-pressure-parameters">
-                            <div className="parameter" id="running-time">
-                                <div className="running-time-logo">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                        <path d="M4.5 12.9375C4.5 16.8147 7.65405 20 11.5312 20C15.4084 20 18.5625 16.8147 18.5625 12.9375C18.5625 12.7273 18.5271 12.5215 18.5087 12.3127C18.2291 12.4061 17.9355 12.4688 17.625 12.4688C16.0741 12.4688 14.8125 11.2072 14.8125 9.65625C14.8125 9.1637 14.9425 8.67798 15.1879 8.25232L15.7334 7.30762C14.9023 6.68542 13.9479 6.27283 12.9375 6.06555V4.9375H13.875V4H9.1875V4.9375H10.125V6.04797C6.91943 6.70117 4.5 9.54175 4.5 12.9375ZM15.8507 15.7926L15.5573 16.1588C14.5726 17.3883 13.1055 18.0938 11.5312 18.0938C8.68811 18.0938 6.375 15.7806 6.375 12.9375C6.375 10.0944 8.68811 7.78125 11.5312 7.78125H12V11.6176C12.5444 11.8118 12.9375 12.3271 12.9375 12.9375C12.9375 13.0986 12.9045 13.2511 12.8545 13.3954L15.8507 15.7926Z" fill="#934621" />
-                                        <path d="M11.5312 13.4062C11.7899 13.4062 12 13.1961 12 12.9374C12 12.6788 11.7899 12.4687 11.5312 12.4687C11.2726 12.4687 11.0625 12.6788 11.0625 12.9374C11.0625 13.1961 11.2726 13.4062 11.5312 13.4062Z" fill="#934621" />
-                                        <path d="M11.531 14.3438C10.7556 14.3438 10.1248 13.7129 10.1248 12.9375C10.1248 12.3271 10.5178 11.8118 11.0623 11.6176V8.74487C9.11121 8.96143 7.57532 10.5186 7.35645 12.4688H8.24976V13.4062H7.35962C7.57874 15.3539 9.11462 16.8898 11.0623 17.1089V16.2188H11.9998V17.1102C12.9509 17.0043 13.8352 16.6006 14.5125 15.923L12.2697 14.1288C12.0543 14.2628 11.8027 14.3438 11.531 14.3438Z" fill="#934621" />
-                                        <path d="M19.2501 8.72003L17.625 5.90619L15.9999 8.72052C15.8365 9.00385 15.75 9.32745 15.75 9.65619C15.75 10.6902 16.5909 11.5312 17.625 11.5312C18.6591 11.5312 19.5 10.6902 19.5 9.65619C19.5 9.3266 19.4135 9.00299 19.2501 8.72003Z" fill="#934621" />
-                                    </svg>
-                                </div>
-                                <div className="parameter-title" id="running-time-title">
-                                    Running Time
-                                </div>
-                                <div className="parameter-value" id="running-time-value">30 mins</div>
-                            </div>
-                            <div className="parameter" id="frequency">
-                                <div className="running-time-logo">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                        <path d="M17.9837 10.2202C17.8605 9.97385 17.6087 9.81821 17.3332 9.81821C17.0577 9.81821 16.8059 9.97385 16.6827 10.2202L14.5073 14.5709L11.7081 7.37285C11.6023 7.1009 11.3443 6.9185 11.0526 6.90948C10.7614 6.9011 10.4922 7.06672 10.3699 7.33164L7.65582 13.2121H4.72727C4.32557 13.2121 4 13.5377 4 13.9394C4 14.341 4.32557 14.6667 4.72727 14.6667H8.12118C8.40481 14.6667 8.6626 14.5017 8.78149 14.2441L10.973 9.49579L13.7463 16.6272C13.8505 16.8952 14.103 17.0767 14.3904 17.0901C14.4017 17.0906 14.413 17.0909 14.4242 17.0909C14.6986 17.0909 14.951 16.936 15.0746 16.6888L17.3332 12.1717L18.6221 14.7495C18.8017 15.1087 19.2386 15.2543 19.5978 15.0747C19.9571 14.8951 20.1027 14.4582 19.9231 14.099L17.9837 10.2202Z" fill="#934621" />
-                                    </svg>
-                                </div>
-                                <div className="parameter-title">Frequency</div>
-                                <div className="parameter-value">50 Hz</div>
 
-                            </div>
-                            <div className="parameter" id="engine-rpm">
-                                <div className="parameter-logo">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                        <path d="M6.82291 12.4331C6.92251 13.6502 7.43942 14.7761 8.30557 15.6423L8.63818 15.9749L6.64257 17.9706L6.30998 17.638C4.90751 16.2355 4.09699 14.4012 4.00016 12.4331H6.82291V12.4331Z" fill="#934621" />
-                                        <path d="M6.8291 11.4924H4.00857C4.12789 9.69955 4.83841 8.01664 6.04545 6.67096L8.01758 8.64312C7.34049 9.45254 6.9291 10.4389 6.8291 11.4924Z" fill="#934621" />
-                                        <path d="M15.6524 15.6128C16.5059 14.7593 17.0244 13.6603 17.1421 12.475H19.9966C19.8776 14.4126 19.0656 16.2186 17.6777 17.6066L17.349 17.9353L15.316 15.9492L15.6524 15.6128Z" fill="#934621" />
-                                        <path d="M12.4852 6.80309V4.00006C14.2805 4.09887 15.9622 4.78929 17.3047 5.97815L15.3049 7.9779C14.5021 7.30705 13.5264 6.90052 12.4852 6.80309Z" fill="#934621" />
-                                        <path d="M6.71206 6.00758C8.06107 4.81063 9.74724 4.11087 11.5439 4.00262V6.79951C10.4871 6.88988 9.49596 7.29807 8.68243 7.97792L6.71206 6.00758Z" fill="#934621" />
-                                        <path d="M15.9699 8.64324L17.9716 6.64154C19.1916 8.00296 19.9008 9.7129 20 11.5343H17.1508C17.0656 10.4664 16.656 9.46436 15.9699 8.64324Z" fill="#934621" />
-                                        <path d="M9.1925 17.1368H10.1332V18.0776H11.0845V19.0183H10.1332V19.9591H9.1925V19.0183H8.25175V18.0776H9.1925V17.1368Z" fill="#934621" />
-                                        <path d="M15.7778 18.0776H13.426V19.0184H15.7778V18.0776Z" fill="#934621" />
-                                        <path d="M11.5438 13.9249V9.14056H12.4845V13.9249C13.9575 14.4683 13.6055 16.6382 12.0141 16.6666C10.4225 16.6381 10.071 14.468 11.5438 13.9249Z" fill="#934621" />
-                                    </svg>
+                        <div className="genset-stats-table">
+                            <div className="table-left">
+                                <div className="stats-titles">
+                                    <div className="stat-title">Voltage</div>
+                                    <div className="stat-title">Power (kW)</div>
+                                    <div className="stat-title">Power (kVA)</div>
                                 </div>
-                                <div className="parameter-title">Engine RPM</div>
-                                <div className="parameter-value">50</div>
-
-                            </div>
-                            <div className="parameter" id="coolant-temp">
-                                <div className="coolant-temp-logo">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                        <path d="M14.1875 6.53124V5.59374H12.4687V4H11.5312V10.9717C10.8107 11.1763 10.2812 11.8397 10.2812 12.625C10.2812 13.5727 11.0523 14.3437 12 14.3437C12.9477 14.3437 13.7187 13.5727 13.7187 12.625C13.7187 11.8397 13.1893 11.1763 12.4687 10.9717V9.65623H14.1875V8.71873H12.4687V8.09373H14.1875V7.15624H12.4687V6.53124H14.1875Z" fill="#934621" />
-                                        <path d="M17.3334 16.2499C16.2695 16.2499 16.2109 14.9999 14.6667 14.9999C13.1328 14.9999 13.0547 16.2499 12.0002 16.2499C12.0001 16.2499 12 16.2499 11.9999 16.2499C11.9998 16.2499 11.9998 16.2499 11.9997 16.2499C10.9453 16.2499 10.8671 14.9999 9.33314 14.9999C7.78899 14.9999 7.73039 16.2499 6.66652 16.2499C5.61718 16.2499 5.52343 14.9999 4 14.9999V15.9374C5.0664 15.9374 5.12109 17.1874 6.66658 17.1874C8.16795 17.1874 8.29295 15.9374 9.3332 15.9374C10.4336 15.9374 10.4453 17.1874 11.9998 17.1874C11.9998 17.1874 11.9999 17.1874 12 17.1874C12.0001 17.1874 12.0002 17.1874 12.0002 17.1874C13.5547 17.1874 13.5664 15.9374 14.6668 15.9374C15.707 15.9374 15.832 17.1874 17.3334 17.1874C18.8789 17.1874 18.9336 15.9374 20 15.9374V14.9999C18.4765 14.9999 18.3828 16.2499 17.3334 16.2499Z" fill="#934621" />
-                                        <path d="M17.3334 19.0626C16.2695 19.0626 16.2109 17.8126 14.6667 17.8126C13.1328 17.8126 13.0547 19.0626 12.0002 19.0626C12.0001 19.0626 12 19.0626 11.9999 19.0626C11.9998 19.0626 11.9998 19.0626 11.9997 19.0626C10.9453 19.0626 10.8671 17.8126 9.33314 17.8126C7.78899 17.8126 7.73039 19.0626 6.66652 19.0626C5.61718 19.0626 5.52343 17.8126 4 17.8126V18.7501C5.0664 18.7501 5.12109 20.0001 6.66658 20.0001C8.16795 20.0001 8.29295 18.7501 9.3332 18.7501C10.4336 18.7501 10.4453 20.0001 11.9998 20.0001C11.9998 20.0001 11.9999 20.0001 12 20.0001C12.0001 20.0001 12.0002 20.0001 12.0002 20.0001C13.5547 20.0001 13.5664 18.7501 14.6668 18.7501C15.707 18.7501 15.832 20.0001 17.3334 20.0001C18.8789 20.0001 18.9336 18.7501 20 18.7501V17.8126C18.4765 17.8126 18.3828 19.0626 17.3334 19.0626Z" fill="#934621" />
-                                    </svg>
-                                </div>
-                                <div className="parameter-title">Coolant Temp</div>
-                                <div className="parameter-value">50°c</div>
-
-                            </div>
-                            <div className="parameter" id="lube-oil-pressure">
-                                <div className="parameter-logo">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                        <path d="M15.526 11.2921H15.5397C17.0598 11.285 18.2942 10.046 18.2942 8.52399C18.2942 7.68838 17.8422 7.00177 17.2951 6.25528L15.526 4L13.7569 6.25528C13.2098 7.0017 12.7578 7.68829 12.7578 8.52396C12.7578 10.0503 13.9996 11.2921 15.526 11.2921Z" fill="#934621" />
-                                        <path d="M15.5267 12.2296L15.5101 12.2295C13.4742 12.2208 11.8206 10.5619 11.8206 8.52393C11.8206 8.01896 11.9348 7.56752 12.1171 7.14585L11.0889 5.83508L7.4669 10.4525L7.45772 10.4646C6.53436 11.724 5.70557 12.9891 5.70557 14.6165C5.70557 17.5779 8.10902 19.9884 11.0678 19.9999L11.0897 20C14.0577 20 16.4725 17.585 16.4725 14.6166C16.4725 13.7274 16.2248 12.9464 15.8496 12.2154C15.7432 12.2246 15.6355 12.2296 15.5267 12.2296Z" fill="#934621" />
-                                    </svg>
-                                </div>
-                                <div className="parameter-title">Lube Oil Pressure</div>
-                                <div className="parameter-value">50 Psi</div>
-
-                            </div>
-                        </div>
-                    </Link>
-                    <Link to='/generator2' className="genset-card" id="genset-2">
-                    <div className="voltage-power-data-tables">
-                            <div className="voltage-power-data-left">
-                                <div className="parameter-titles">
-                                    <div className="title" id="voltage">Voltage (V)</div>
-                                    <div className="title" id="power-kw">Power (kW)</div>
-                                    <div className="title" id="power-kva">Power (kVA)</div>
-                                </div>
-                                <div className="parameter-values">
-                                    <div className="value" id="voltage">99</div>
-                                    <div className="value" id="voltage">99</div>
-                                    <div className="value" id="voltage">99</div>
+                                <div className="stats-values">
+                                    <div className="stat-value">10</div>
+                                    <div className="stat-value">99</div>
+                                    <div className="stat-value">99</div>
                                 </div>
                             </div>
-                            <div className="voltage-power-data-right">
-                                <div className="parameter-titles">
-                                    <div className="title" id="voltage">Voltage (V)</div>
-                                    <div className="title" id="power-kw">Power (kW)</div>
-                                    <div className="title" id="power-kva">Power (kVA)</div>
+                            <div className="table-right">
+                                <div className="stats-titles">
+                                    <div className="stat-title">Power Factor</div>
+                                    <div className="stat-title">Current (A)</div>
+                                    <div className="stat-title">Engine running hours (Hr)</div>
                                 </div>
-                                <div className="parameter-values">
-                                    <div className="value" id="voltage">99</div>
-                                    <div className="value" id="voltage">99</div>
-                                    <div className="value" id="voltage">99</div>
+                                <div className="stats-values">
+                                    <div className="stat-value">83</div>
+                                    <div className="stat-value">10</div>
+                                    <div className="stat-value">54</div>
                                 </div>
-                            </div>
-                        </div>
-                        <div className="running-time-pressure-parameters">
-                            <div className="parameter" id="running-time">
-                                <div className="running-time-logo">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                        <path d="M4.5 12.9375C4.5 16.8147 7.65405 20 11.5312 20C15.4084 20 18.5625 16.8147 18.5625 12.9375C18.5625 12.7273 18.5271 12.5215 18.5087 12.3127C18.2291 12.4061 17.9355 12.4688 17.625 12.4688C16.0741 12.4688 14.8125 11.2072 14.8125 9.65625C14.8125 9.1637 14.9425 8.67798 15.1879 8.25232L15.7334 7.30762C14.9023 6.68542 13.9479 6.27283 12.9375 6.06555V4.9375H13.875V4H9.1875V4.9375H10.125V6.04797C6.91943 6.70117 4.5 9.54175 4.5 12.9375ZM15.8507 15.7926L15.5573 16.1588C14.5726 17.3883 13.1055 18.0938 11.5312 18.0938C8.68811 18.0938 6.375 15.7806 6.375 12.9375C6.375 10.0944 8.68811 7.78125 11.5312 7.78125H12V11.6176C12.5444 11.8118 12.9375 12.3271 12.9375 12.9375C12.9375 13.0986 12.9045 13.2511 12.8545 13.3954L15.8507 15.7926Z" fill="#934621" />
-                                        <path d="M11.5312 13.4062C11.7899 13.4062 12 13.1961 12 12.9374C12 12.6788 11.7899 12.4687 11.5312 12.4687C11.2726 12.4687 11.0625 12.6788 11.0625 12.9374C11.0625 13.1961 11.2726 13.4062 11.5312 13.4062Z" fill="#934621" />
-                                        <path d="M11.531 14.3438C10.7556 14.3438 10.1248 13.7129 10.1248 12.9375C10.1248 12.3271 10.5178 11.8118 11.0623 11.6176V8.74487C9.11121 8.96143 7.57532 10.5186 7.35645 12.4688H8.24976V13.4062H7.35962C7.57874 15.3539 9.11462 16.8898 11.0623 17.1089V16.2188H11.9998V17.1102C12.9509 17.0043 13.8352 16.6006 14.5125 15.923L12.2697 14.1288C12.0543 14.2628 11.8027 14.3438 11.531 14.3438Z" fill="#934621" />
-                                        <path d="M19.2501 8.72003L17.625 5.90619L15.9999 8.72052C15.8365 9.00385 15.75 9.32745 15.75 9.65619C15.75 10.6902 16.5909 11.5312 17.625 11.5312C18.6591 11.5312 19.5 10.6902 19.5 9.65619C19.5 9.3266 19.4135 9.00299 19.2501 8.72003Z" fill="#934621" />
-                                    </svg>
-                                </div>
-                                <div className="parameter-title" id="running-time-title">
-                                    Running Time
-                                </div>
-                                <div className="parameter-value" id="running-time-value">30 mins</div>
-                            </div>
-                            <div className="parameter" id="frequency">
-                                <div className="running-time-logo">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                        <path d="M17.9837 10.2202C17.8605 9.97385 17.6087 9.81821 17.3332 9.81821C17.0577 9.81821 16.8059 9.97385 16.6827 10.2202L14.5073 14.5709L11.7081 7.37285C11.6023 7.1009 11.3443 6.9185 11.0526 6.90948C10.7614 6.9011 10.4922 7.06672 10.3699 7.33164L7.65582 13.2121H4.72727C4.32557 13.2121 4 13.5377 4 13.9394C4 14.341 4.32557 14.6667 4.72727 14.6667H8.12118C8.40481 14.6667 8.6626 14.5017 8.78149 14.2441L10.973 9.49579L13.7463 16.6272C13.8505 16.8952 14.103 17.0767 14.3904 17.0901C14.4017 17.0906 14.413 17.0909 14.4242 17.0909C14.6986 17.0909 14.951 16.936 15.0746 16.6888L17.3332 12.1717L18.6221 14.7495C18.8017 15.1087 19.2386 15.2543 19.5978 15.0747C19.9571 14.8951 20.1027 14.4582 19.9231 14.099L17.9837 10.2202Z" fill="#934621" />
-                                    </svg>
-                                </div>
-                                <div className="parameter-title">Frequency</div>
-                                <div className="parameter-value">50 Hz</div>
-
-                            </div>
-                            <div className="parameter" id="engine-rpm">
-                                <div className="parameter-logo">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                        <path d="M6.82291 12.4331C6.92251 13.6502 7.43942 14.7761 8.30557 15.6423L8.63818 15.9749L6.64257 17.9706L6.30998 17.638C4.90751 16.2355 4.09699 14.4012 4.00016 12.4331H6.82291V12.4331Z" fill="#934621" />
-                                        <path d="M6.8291 11.4924H4.00857C4.12789 9.69955 4.83841 8.01664 6.04545 6.67096L8.01758 8.64312C7.34049 9.45254 6.9291 10.4389 6.8291 11.4924Z" fill="#934621" />
-                                        <path d="M15.6524 15.6128C16.5059 14.7593 17.0244 13.6603 17.1421 12.475H19.9966C19.8776 14.4126 19.0656 16.2186 17.6777 17.6066L17.349 17.9353L15.316 15.9492L15.6524 15.6128Z" fill="#934621" />
-                                        <path d="M12.4852 6.80309V4.00006C14.2805 4.09887 15.9622 4.78929 17.3047 5.97815L15.3049 7.9779C14.5021 7.30705 13.5264 6.90052 12.4852 6.80309Z" fill="#934621" />
-                                        <path d="M6.71206 6.00758C8.06107 4.81063 9.74724 4.11087 11.5439 4.00262V6.79951C10.4871 6.88988 9.49596 7.29807 8.68243 7.97792L6.71206 6.00758Z" fill="#934621" />
-                                        <path d="M15.9699 8.64324L17.9716 6.64154C19.1916 8.00296 19.9008 9.7129 20 11.5343H17.1508C17.0656 10.4664 16.656 9.46436 15.9699 8.64324Z" fill="#934621" />
-                                        <path d="M9.1925 17.1368H10.1332V18.0776H11.0845V19.0183H10.1332V19.9591H9.1925V19.0183H8.25175V18.0776H9.1925V17.1368Z" fill="#934621" />
-                                        <path d="M15.7778 18.0776H13.426V19.0184H15.7778V18.0776Z" fill="#934621" />
-                                        <path d="M11.5438 13.9249V9.14056H12.4845V13.9249C13.9575 14.4683 13.6055 16.6382 12.0141 16.6666C10.4225 16.6381 10.071 14.468 11.5438 13.9249Z" fill="#934621" />
-                                    </svg>
-                                </div>
-                                <div className="parameter-title">Engine RPM</div>
-                                <div className="parameter-value">50</div>
-
-                            </div>
-                            <div className="parameter" id="coolant-temp">
-                                <div className="coolant-temp-logo">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                        <path d="M14.1875 6.53124V5.59374H12.4687V4H11.5312V10.9717C10.8107 11.1763 10.2812 11.8397 10.2812 12.625C10.2812 13.5727 11.0523 14.3437 12 14.3437C12.9477 14.3437 13.7187 13.5727 13.7187 12.625C13.7187 11.8397 13.1893 11.1763 12.4687 10.9717V9.65623H14.1875V8.71873H12.4687V8.09373H14.1875V7.15624H12.4687V6.53124H14.1875Z" fill="#934621" />
-                                        <path d="M17.3334 16.2499C16.2695 16.2499 16.2109 14.9999 14.6667 14.9999C13.1328 14.9999 13.0547 16.2499 12.0002 16.2499C12.0001 16.2499 12 16.2499 11.9999 16.2499C11.9998 16.2499 11.9998 16.2499 11.9997 16.2499C10.9453 16.2499 10.8671 14.9999 9.33314 14.9999C7.78899 14.9999 7.73039 16.2499 6.66652 16.2499C5.61718 16.2499 5.52343 14.9999 4 14.9999V15.9374C5.0664 15.9374 5.12109 17.1874 6.66658 17.1874C8.16795 17.1874 8.29295 15.9374 9.3332 15.9374C10.4336 15.9374 10.4453 17.1874 11.9998 17.1874C11.9998 17.1874 11.9999 17.1874 12 17.1874C12.0001 17.1874 12.0002 17.1874 12.0002 17.1874C13.5547 17.1874 13.5664 15.9374 14.6668 15.9374C15.707 15.9374 15.832 17.1874 17.3334 17.1874C18.8789 17.1874 18.9336 15.9374 20 15.9374V14.9999C18.4765 14.9999 18.3828 16.2499 17.3334 16.2499Z" fill="#934621" />
-                                        <path d="M17.3334 19.0626C16.2695 19.0626 16.2109 17.8126 14.6667 17.8126C13.1328 17.8126 13.0547 19.0626 12.0002 19.0626C12.0001 19.0626 12 19.0626 11.9999 19.0626C11.9998 19.0626 11.9998 19.0626 11.9997 19.0626C10.9453 19.0626 10.8671 17.8126 9.33314 17.8126C7.78899 17.8126 7.73039 19.0626 6.66652 19.0626C5.61718 19.0626 5.52343 17.8126 4 17.8126V18.7501C5.0664 18.7501 5.12109 20.0001 6.66658 20.0001C8.16795 20.0001 8.29295 18.7501 9.3332 18.7501C10.4336 18.7501 10.4453 20.0001 11.9998 20.0001C11.9998 20.0001 11.9999 20.0001 12 20.0001C12.0001 20.0001 12.0002 20.0001 12.0002 20.0001C13.5547 20.0001 13.5664 18.7501 14.6668 18.7501C15.707 18.7501 15.832 20.0001 17.3334 20.0001C18.8789 20.0001 18.9336 18.7501 20 18.7501V17.8126C18.4765 17.8126 18.3828 19.0626 17.3334 19.0626Z" fill="#934621" />
-                                    </svg>
-                                </div>
-                                <div className="parameter-title">Coolant Temp</div>
-                                <div className="parameter-value">50°c</div>
-
-                            </div>
-                            <div className="parameter" id="lube-oil-pressure">
-                                <div className="parameter-logo">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                        <path d="M15.526 11.2921H15.5397C17.0598 11.285 18.2942 10.046 18.2942 8.52399C18.2942 7.68838 17.8422 7.00177 17.2951 6.25528L15.526 4L13.7569 6.25528C13.2098 7.0017 12.7578 7.68829 12.7578 8.52396C12.7578 10.0503 13.9996 11.2921 15.526 11.2921Z" fill="#934621" />
-                                        <path d="M15.5267 12.2296L15.5101 12.2295C13.4742 12.2208 11.8206 10.5619 11.8206 8.52393C11.8206 8.01896 11.9348 7.56752 12.1171 7.14585L11.0889 5.83508L7.4669 10.4525L7.45772 10.4646C6.53436 11.724 5.70557 12.9891 5.70557 14.6165C5.70557 17.5779 8.10902 19.9884 11.0678 19.9999L11.0897 20C14.0577 20 16.4725 17.585 16.4725 14.6166C16.4725 13.7274 16.2248 12.9464 15.8496 12.2154C15.7432 12.2246 15.6355 12.2296 15.5267 12.2296Z" fill="#934621" />
-                                    </svg>
-                                </div>
-                                <div className="parameter-title">Lube Oil Pressure</div>
-                                <div className="parameter-value">50 Psi</div>
-
                             </div>
                         </div>
                     </Link>
+
+                    <div className="genset-card-route" id="genset-2">
+                        <div className="genset-icon-parameters-cards">
+                            <div className="genset-img-generator"></div>
+                            <div className="parameter-card">
+                                <div className="parameter-logo">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 56 47" fill="none">
+                                        <path d="M28 37.0463C37.9668 37.0463 46.0466 28.9665 46.0466 18.9996C46.0466 9.03275 37.9668 0.953003 28 0.953003C18.0331 0.953003 9.95334 9.03275 9.95334 18.9996C9.95334 28.9665 18.0331 37.0463 28 37.0463Z" fill="url(#paint0_linear_2337_1073)" />
+                                        <path d="M22.5976 26.7219L29.158 20.1616C29.4668 19.8537 29.6407 19.4252 29.6407 18.9996V9.15601C29.6407 8.2492 28.9069 7.51541 28.0001 7.51541C27.0932 7.51541 26.3595 8.2492 26.3595 9.15601V18.3203L20.2777 24.402C19.6369 25.0428 19.6369 26.0811 20.2777 26.7219C20.9185 27.3629 21.9566 27.3629 22.5976 26.7219Z" fill="#0A3B36" />
+                                        <defs>
+                                            <linearGradient id="paint0_linear_2337_1073" x1="28" y1="37.0463" x2="28" y2="0.953003" gradientUnits="userSpaceOnUse">
+                                                <stop stop-color="#00B59C" />
+                                                <stop offset="1" stop-color="#9CFFAC" />
+                                            </linearGradient>
+                                        </defs>
+                                    </svg>
+                                </div>
+                                <div className="parameter-stats">
+                                    <div className="paramter-heading">Running time</div>
+                                    <div className="paramter-value">30 mins</div>
+                                </div>
+                            </div>
+                            <div className="parameter-card">
+                                <div className="parameter-logo">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 37 32" fill="none">
+                                        <path d="M25.1357 25.0772C25.8528 25.5929 26.891 25.4407 27.4204 24.6894C30.6728 20.112 30.1474 13.9036 26.1707 9.92698C21.8385 5.5883 14.2634 5.5883 9.93102 9.92698C5.95447 13.9035 5.42893 20.112 8.6813 24.6894C9.20357 25.428 10.2386 25.5994 10.966 25.0772C11.7063 24.5516 11.8793 23.5279 11.3538 22.7893C9.03382 19.5208 9.41193 15.0876 12.251 12.2469C15.3464 9.14834 20.7553 9.14834 23.8507 12.2469C26.6898 15.0876 27.0679 19.5208 24.7479 22.7893C24.2225 23.5279 24.3955 24.5517 25.1357 25.0772ZM7.61118 30.8082C8.252 30.1674 8.252 29.1291 7.61118 28.4882C1.83596 22.7164 1.84153 13.3717 7.61118 7.6055C10.3989 4.81611 14.1064 3.28125 18.0509 3.28125C21.9954 3.28125 25.7029 4.81611 28.4906 7.6055C34.2659 13.3773 34.2603 22.722 28.4906 28.4882C27.8498 29.1291 27.8498 30.1674 28.4906 30.8082C29.1316 31.449 30.1698 31.449 30.8106 30.8082C37.8659 23.7561 37.8652 12.3368 30.8106 5.28555C27.4044 1.87611 22.8703 0 18.0509 0C13.2315 0 8.69738 1.87611 5.29122 5.28555C-1.76412 12.3376 -1.76336 23.7569 5.29122 30.8082C5.93205 31.449 6.97024 31.449 7.61118 30.8082Z" fill="url(#paint0_linear_2337_1081)" />
+                                        <path d="M17.9999 22.9688C20.7182 22.9688 22.9218 20.7652 22.9218 18.0469C22.9218 15.3286 20.7182 13.125 17.9999 13.125C15.2816 13.125 13.078 15.3286 13.078 18.0469C13.078 20.7652 15.2816 22.9688 17.9999 22.9688Z" fill="url(#paint1_linear_2337_1081)" />
+                                        <defs>
+                                            <linearGradient id="paint0_linear_2337_1081" x1="18.0509" y1="56" x2="18.0509" y2="0" gradientUnits="userSpaceOnUse">
+                                                <stop stop-color="#00B59C" />
+                                                <stop offset="1" stop-color="#9CFFAC" />
+                                            </linearGradient>
+                                            <linearGradient id="paint1_linear_2337_1081" x1="17.9999" y1="22.9688" x2="17.9999" y2="13.125" gradientUnits="userSpaceOnUse">
+                                                <stop stop-color="#ADDCFF" />
+                                                <stop offset="0.5028" stop-color="#EAF6FF" />
+                                                <stop offset="1" stop-color="#EAF6FF" />
+                                            </linearGradient>
+                                        </defs>
+                                    </svg>
+                                </div>
+                                <div className="parameter-stats">
+                                    <div className="paramter-heading">Running time</div>
+                                    <div className="paramter-value">30 mins</div>
+                                </div>
+                            </div>
+                            <div className="parameter-card">
+                                <div className="parameter-logo">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 40 30" fill="none">
+                                        <path d="M20 0.9375L17.6562 5.625L20 10.3125C22.9062 10.3125 25.5312 11.4844 27.4531 13.4062L32.8906 12.6562L34.0859 6.77344C30.4765 3.16406 25.4845 0.9375 20 0.9375ZM5.91406 6.77344C2.30469 10.3829 0 15.3749 0 20.8594C0 21.5157 0.515547 22.0312 1.17188 22.0312H8.28125C8.93758 22.0312 9.45312 21.5157 9.45312 20.8594C9.45312 17.9531 10.625 15.3281 12.5469 13.4062L11.2341 7.40602L5.91406 6.77344ZM19.0364 13.1621C18.2193 14.3454 14.1406 20.3913 14.1406 23.2031C14.1406 26.4338 16.7682 29.0625 20 29.0625C23.2318 29.0625 25.8594 26.4338 25.8594 23.2031C25.8594 20.3913 21.7807 14.3454 20.9636 13.1621C20.5288 12.528 19.4713 12.528 19.0364 13.1621Z" fill="url(#paint0_linear_2337_1091)" />
+                                        <path d="M34.086 6.77344L27.4532 13.4062C29.3751 15.3281 30.5469 17.9531 30.5469 20.8594C30.5469 21.5157 31.0625 22.0312 31.7188 22.0312H38.8282C39.4845 22.0312 40.0001 21.5157 40.0001 20.8594C40.0001 15.3749 37.6954 10.3829 34.086 6.77344ZM20.0001 0.9375C14.5156 0.9375 9.52358 3.16406 5.91412 6.77344L12.5469 13.4062C14.4688 11.4844 17.0938 10.3125 20.0001 10.3125V0.9375ZM20.0001 22.0312C19.3529 22.0312 18.8282 22.5559 18.8282 23.2031C18.8282 23.8503 19.3529 24.375 20.0001 24.375C20.6472 24.375 21.1719 23.8503 21.1719 23.2031C21.1719 22.5559 20.6472 22.0312 20.0001 22.0312Z" fill="url(#paint1_linear_2337_1091)" />
+                                        <defs>
+                                            <linearGradient id="paint0_linear_2337_1091" x1="17.043" y1="29.0625" x2="17.043" y2="0.9375" gradientUnits="userSpaceOnUse">
+                                                <stop stop-color="#00B59C" />
+                                                <stop offset="1" stop-color="#9CFFAC" />
+                                            </linearGradient>
+                                            <linearGradient id="paint1_linear_2337_1091" x1="22.9571" y1="24.375" x2="22.9571" y2="0.9375" gradientUnits="userSpaceOnUse">
+                                                <stop stop-color="#C3FFE8" />
+                                                <stop offset="0.9973" stop-color="#F0FFF4" />
+                                            </linearGradient>
+                                        </defs>
+                                    </svg>
+                                </div>
+                                <div className="parameter-stats">
+                                    <div className="paramter-heading">Running time</div>
+                                    <div className="paramter-value">30 mins</div>
+                                </div>
+                            </div>
+                            <div className="parameter-card">
+                                <div className="parameter-logo">
+                                    <svg width="50" height="50" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="56" height="56" rx="2" fill="url(#paint0_linear_2337_1088)" />
+                                        <path d="M35.1818 33.944C33.0214 33.944 31.2627 35.7016 31.2627 37.8631C31.2627 40.0245 33.0214 41.7822 35.1818 41.7822C37.3423 41.7822 39.1009 40.0245 39.1009 37.8631C39.1009 35.7016 37.3424 33.944 35.1818 33.944ZM34.2021 28.9144H36.1616C37.2439 28.9144 38.1212 28.0371 38.1212 26.9549V14.2178C38.1212 12.597 36.8026 11.2784 35.1818 11.2784C33.561 11.2784 32.2425 12.597 32.2425 14.2178V26.9549C32.2425 28.0371 33.1199 28.9144 34.2021 28.9144Z" fill="url(#paint1_linear_2337_1088)" />
+                                        <path d="M38.1212 31.6904V26.9549H32.2425V31.6904C29.1659 33.1601 27.5592 36.6873 28.6956 40.1361C29.5204 42.6898 32.0051 44.7215 35.1818 44.7215C38.9644 44.7215 42.0403 41.6523 42.0403 37.8631C42.0403 35.2372 40.4922 32.827 38.1212 31.6904ZM35.1818 40.8024C33.5553 40.8024 32.2425 39.4894 32.2425 37.8631C32.2425 36.2366 33.5553 34.9237 35.1818 34.9237C36.8084 34.9237 38.1212 36.2366 38.1212 37.8631C38.1212 39.4894 36.8085 40.8024 35.1818 40.8024ZM28.1148 27.0267L29.4601 27.8036C29.931 28.074 30.5308 27.9121 30.7978 27.4448C31.0695 26.976 30.9088 26.377 30.4399 26.1063L29.0944 25.3293L29.487 25.2241C30.0094 25.0844 30.3194 24.5467 30.1797 24.0242C30.0381 23.5008 29.5099 23.1918 28.978 23.3315L26.6946 23.9436L25.5493 23.2822L24.7411 22.056L25.5492 20.83L26.6945 20.1686L28.9779 20.7806C29.5024 20.9205 30.0383 20.6097 30.1796 20.0879C30.3193 19.5655 30.0093 19.0278 29.4869 18.888L29.0944 18.7828L30.4399 18.0059C30.9087 17.735 31.0695 17.1361 30.7977 16.6673C30.5279 16.1965 29.9251 16.0387 29.4601 16.3085L28.1148 17.0855L28.22 16.6931C28.3597 16.1707 28.0497 15.633 27.5273 15.4933C27.003 15.3546 26.4691 15.6627 26.3256 16.186L25.7128 18.4724L24.5698 19.1324L23.103 19.2201L22.4447 17.9051V16.5831L24.1172 14.9106C24.4999 14.5279 24.4999 13.9078 24.1172 13.5251C23.7345 13.1424 23.1144 13.1424 22.7317 13.5251L22.4447 13.8122V12.2582C22.4447 11.7167 22.0064 11.2784 21.4649 11.2784C20.9233 11.2784 20.4851 11.7167 20.4851 12.2582V13.8121L20.198 13.525C19.8153 13.1423 19.1953 13.1423 18.8126 13.525C18.4299 13.9077 18.4299 14.5278 18.8126 14.9105L20.4851 16.583V17.905L19.8268 19.2199L18.36 19.1323L17.217 18.4723L16.6042 16.1859C16.4627 15.6626 15.9346 15.3535 15.4026 15.4932C14.8802 15.6329 14.5702 16.1706 14.7099 16.693L14.8151 17.0853L13.4698 16.3084C13.0029 16.0415 12.402 16.1984 12.1322 16.6672C11.8605 17.1361 12.0212 17.735 12.4901 18.0058L13.8356 18.7828L13.443 18.888C12.9206 19.0277 12.6106 19.5654 12.7503 20.0878C12.8916 20.6099 13.4278 20.9204 13.952 20.7805L16.2354 20.1685L17.3807 20.8299L18.1888 22.056L17.3808 23.282L16.2355 23.9434L13.9521 23.3314C13.4297 23.1927 12.8939 23.5017 12.7504 24.0241C12.6106 24.5465 12.9206 25.0842 13.4431 25.2239L13.8356 25.3292L12.4901 26.1062C12.0212 26.377 11.8605 26.9759 12.1322 27.4448C12.3989 27.9115 12.9982 28.0743 13.4698 27.8036L14.8151 27.0266L14.7099 27.4189C14.5436 28.0411 15.0123 28.6522 15.6572 28.6522C16.0896 28.6522 16.4858 28.3643 16.6044 27.926L17.2172 25.6396L18.3602 24.9796L19.827 24.892L20.4852 26.2069V27.529L18.8128 29.2014C18.4301 29.5841 18.4301 30.2042 18.8128 30.5869C19.1955 30.9696 19.8155 30.9696 20.1982 30.5869L20.4853 30.2998V31.8538C20.4853 32.3953 20.9235 32.8335 21.4651 32.8335C22.0066 32.8335 22.4449 32.3953 22.4449 31.8538V30.2999L22.7319 30.587C23.1146 30.9697 23.7346 30.9697 24.1174 30.587C24.5001 30.2043 24.5001 29.5842 24.1174 29.2015L22.4449 27.529V26.207L23.1032 24.8921L24.57 24.9797L25.7129 25.6397L26.3258 27.9261C26.4671 28.4482 27.0032 28.7586 27.5275 28.6188C28.0499 28.4791 28.3599 27.9414 28.2202 27.419L28.1148 27.0267ZM43.0201 24.9953H41.0605C40.519 24.9953 40.0807 25.4335 40.0807 25.9751C40.0807 26.5167 40.519 26.9549 41.0605 26.9549H43.0201C43.5616 26.9549 43.9998 26.5167 43.9998 25.9751C43.9998 25.4335 43.5616 24.9953 43.0201 24.9953ZM43.0201 21.0762H41.0605C40.519 21.0762 40.0807 21.5144 40.0807 22.056C40.0807 22.5975 40.519 23.0358 41.0605 23.0358H43.0201C43.5616 23.0358 43.9998 22.5975 43.9998 22.056C43.9998 21.5144 43.5616 21.0762 43.0201 21.0762ZM43.0201 17.1571H41.0605C40.519 17.1571 40.0807 17.5953 40.0807 18.1369C40.0807 18.6784 40.519 19.1167 41.0605 19.1167H43.0201C43.5616 19.1167 43.9998 18.6784 43.9998 18.1369C43.9998 17.5953 43.5616 17.1571 43.0201 17.1571ZM41.0605 15.1976H43.0201C43.5616 15.1976 43.9998 14.7593 43.9998 14.2178C43.9998 13.6762 43.5616 13.238 43.0201 13.238H41.0605C40.519 13.238 40.0807 13.6762 40.0807 14.2178C40.0807 14.7593 40.519 15.1976 41.0605 15.1976Z" fill="url(#paint2_linear_2337_1088)" />
+                                        <defs>
+                                            <linearGradient id="paint0_linear_2337_1088" x1="28" y1="0" x2="28" y2="56" gradientUnits="userSpaceOnUse">
+                                                <stop stop-color="#0A3D38" />
+                                                <stop offset="1" stop-color="#051E1C" />
+                                            </linearGradient>
+                                            <linearGradient id="paint1_linear_2337_1088" x1="35.1818" y1="41.7822" x2="35.1818" y2="11.2784" gradientUnits="userSpaceOnUse">
+                                                <stop stop-color="#C3FFE8" />
+                                                <stop offset="0.9973" stop-color="#F0FFF4" />
+                                            </linearGradient>
+                                            <linearGradient id="paint2_linear_2337_1088" x1="27.9999" y1="44.7215" x2="27.9999" y2="11.2784" gradientUnits="userSpaceOnUse">
+                                                <stop stop-color="#00B59C" />
+                                                <stop offset="1" stop-color="#9CFFAC" />
+                                            </linearGradient>
+                                        </defs>
+                                    </svg>
+
+                                </div>
+                                <div className="parameter-stats">
+                                    <div className="paramter-heading">Running time</div>
+                                    <div className="paramter-value">30 mins</div>
+                                </div>
+                            </div>
+                            <div className="parameter-card">
+                                <div className="parameter-logo">
+                                    <svg width="40" height="40" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <g id="Group">
+                                            <path id="Vector" d="M17.2148 39C16.5429 39 15.9961 38.4533 15.9961 37.7812V34.8177C15.9961 34.3409 15.6898 33.9305 15.234 33.7962C14.2559 33.5046 13.3043 33.1106 12.4053 32.6253C12.2524 32.5423 12.0789 32.4984 11.9032 32.4984C11.6204 32.4984 11.344 32.6119 11.145 32.8097L9.04968 34.9039C8.81948 35.1341 8.51343 35.261 8.18802 35.261C7.86261 35.261 7.55655 35.1341 7.32636 34.9039L4.095 31.6726C3.61992 31.1975 3.61992 30.4243 4.095 29.9492L6.19049 27.8548C6.52663 27.5177 6.60029 27.0104 6.37376 26.5927C5.89098 25.7016 5.49778 24.7507 5.20498 23.7662C5.07168 23.3174 4.65121 23.0039 4.18229 23.0039H1.21875C0.546762 23.0039 0 22.4572 0 21.7852V17.2148C0 16.5428 0.546762 15.9961 1.21875 15.9961H4.18229C4.65844 15.9961 5.06947 15.6893 5.20498 15.2327C5.49824 14.2479 5.89212 13.2963 6.37597 12.404C6.59732 11.9936 6.52107 11.4758 6.19041 11.1452L4.09492 9.05082C3.86428 8.82009 3.73753 8.5135 3.73798 8.18756C3.73844 7.86254 3.86527 7.55701 4.09492 7.32743L7.32629 4.09607C7.55648 3.8658 7.86254 3.73905 8.18794 3.73905C8.51335 3.73905 8.81941 3.86587 9.0496 4.09607L11.1451 6.19041C11.3491 6.39311 11.6165 6.50485 11.8981 6.50485C12.0736 6.50485 12.2497 6.45983 12.4075 6.37475C13.3033 5.88991 14.2542 5.49595 15.2337 5.20391C15.6826 5.07091 15.9961 4.65083 15.9961 4.18229V1.21875C15.9961 0.546762 16.5429 0 17.2148 0H21.7852C22.4571 0 23.0039 0.546762 23.0039 1.21875V4.18229C23.0039 4.65905 23.3102 5.06954 23.766 5.20383C24.7441 5.49542 25.6957 5.88938 26.5947 6.37475C26.7468 6.45808 26.9201 6.50203 27.0962 6.50203C27.3803 6.50203 27.6568 6.38846 27.8548 6.19041L29.9503 4.09607C30.1805 3.8658 30.4866 3.73905 30.812 3.73905C31.1374 3.73905 31.4434 3.86587 31.6736 4.09607L34.905 7.32743C35.3801 7.80259 35.3801 8.57566 34.905 9.05082L32.8095 11.1452C32.4734 11.4823 32.3997 11.9896 32.6262 12.4073C33.109 13.2984 33.5022 14.2493 33.795 15.2338C33.9283 15.6826 34.3489 15.9961 34.8177 15.9961H37.7812C38.4532 15.9961 39 16.5428 39 17.2148V21.7852C39 22.4572 38.4532 23.0039 37.7812 23.0039H34.8177C34.3416 23.0039 33.9306 23.3107 33.795 23.7673C33.5018 24.7521 33.1079 25.7037 32.624 26.5959C32.4027 27.0064 32.4789 27.5241 32.8096 27.8548L34.9051 29.9491C35.1357 30.1798 35.2625 30.4864 35.262 30.8124C35.2616 31.1374 35.1347 31.4429 34.9051 31.6725L31.6737 34.9039C31.4435 35.1341 31.1375 35.261 30.8121 35.261C30.4867 35.261 30.1806 35.1341 29.9504 34.9039L27.8549 32.8095C27.6524 32.607 27.3853 32.4955 27.1028 32.4955C26.9268 32.4955 26.7504 32.5404 26.5925 32.6252C25.6968 33.11 24.7459 33.5039 23.7664 33.7959C23.3174 33.9289 23.004 34.349 23.004 34.8176V37.7812C23.004 38.4533 22.4572 39 21.7852 39H17.2148Z" fill="url(#paint0_linear_2337_1099)" />
+                                            <path id="Vector_2" d="M19.5001 29.8848C15.664 29.8848 12.5442 26.7638 12.5442 22.9277C12.5442 21.8309 12.8053 20.7386 13.2985 19.7678L18.3932 9.79374C18.8172 8.96133 20.183 8.96133 20.6069 9.79374L25.6994 19.7678C26.1948 20.7386 26.4559 21.8309 26.4559 22.9277C26.4559 26.7638 23.3362 29.8848 19.5001 29.8848Z" fill="#030F0E" />
+                                        </g>
+                                        <defs>
+                                            <linearGradient id="paint0_linear_2337_1099" x1="19.5" y1="39" x2="19.5" y2="0" gradientUnits="userSpaceOnUse">
+                                                <stop stop-color="#00B59C" />
+                                                <stop offset="1" stop-color="#9CFFAC" />
+                                            </linearGradient>
+                                        </defs>
+                                    </svg>
+
+                                </div>
+                                <div className="parameter-stats">
+                                    <div className="paramter-heading">Running time</div>
+                                    <div className="paramter-value">30 mins</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="genset-stats-table">
+                            <div className="table-left">
+                                <div className="stats-titles">
+                                    <div className="stat-title">Voltage</div>
+                                    <div className="stat-title">Power (kW)</div>
+                                    <div className="stat-title">Power (kVA)</div>
+                                </div>
+                                <div className="stats-values">
+                                    <div className="stat-value">10</div>
+                                    <div className="stat-value">99</div>
+                                    <div className="stat-value">99</div>
+                                </div>
+                            </div>
+                            <div className="table-right">
+                                <div className="stats-titles">
+                                    <div className="stat-title">Power Factor</div>
+                                    <div className="stat-title">Current (A)</div>
+                                    <div className="stat-title">Engine running hours (Hr)</div>
+                                </div>
+                                <div className="stats-values">
+                                    <div className="stat-value">83</div>
+                                    <div className="stat-value">10</div>
+                                    <div className="stat-value">54</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div className="bottom-graph-card">
-                <GensetChart className='genset-chart'/>
+                <GensetChart className='genset-chart' />
+
             </div>
-        </div>
+        </div >
     )
 }
 

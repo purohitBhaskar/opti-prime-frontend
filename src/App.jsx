@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "./App.css"
 import LeftBar from "../src/components/LeftBar"
 import TopBar from "../src/components/TopBar"
@@ -7,7 +7,10 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import GeneratorOne from "../src/components/GeneratorOne"
 import GeneratorTwo from "../src/components/GeneratorTwo"
 const App = () => {
+  const [state, setState] = useState(false)
   return (
+    
+
     <Router>
       <div className='app'>
         <LeftBar />
@@ -16,11 +19,11 @@ const App = () => {
           <Routes>
             <Route path='/generator1' element={<GeneratorOne/>}></Route>
             <Route path='/generator2' element={<GeneratorTwo/>}></Route>
-            <Route path='/' element={<MainContent/>}></Route>
+            <Route path='/' element={<MainContent />}></Route>
           </Routes>
         </div>
       </div>
-    </Router>
+    // </Router>
   )
 }
 

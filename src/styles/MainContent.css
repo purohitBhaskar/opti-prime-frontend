@@ -16,7 +16,7 @@
         justify-content: space-between;
         height: 332px;
         width: 1300px;
-        background:#0A1517 ;
+        background: #0A1517;
         /* padding: 20px 0px; */
         /* border: 1px solid white; */
         gap: 34px;
@@ -61,6 +61,7 @@
                 flex-direction: column;
                 justify-content: space-between;
                 background: transparent;
+
                 .parameters-heading {
                     color: var(--S3, #DDD);
                     display: flex;
@@ -85,6 +86,7 @@
                     flex-direction: row;
                     flex-wrap: wrap;
                     background: transparent;
+
                     .stat-card {
                         width: 152px;
                         height: 72px;
@@ -193,13 +195,11 @@
 
                     /* border: 1px solid white; */
                     .switch-genset {
-                        background: #0A1517;
+                        background: red;
                         /* border: 1px solid red; */
                         width: 80px;
 
-                        .btn-prop {
-                            /* border: 1px solid red; */
-                        }
+                        
                     }
 
                     .running-time-heading {
@@ -233,11 +233,12 @@
                 width: 327px;
                 margin-top: 20px;
                 height: 100%;
-                background: url("../assets/energyFlow.png");
+                background: url("../assets/energy-flow.mp4");
                 background-size: cover;
                 background-position: bottom;
                 mix-blend-mode: exclusion;
             }
+
         }
     }
 
@@ -335,197 +336,189 @@
             }
         }
 
-        .middle-genset-img {
+        .middle-card-row {
+            display: flex;
             width: 100%;
-            height: 85px;
-            /* border: 1px solid white; */
-            margin-top: 30px;
-            display: flex;
-            justify-content: space-between;
-            z-index: 999;
-
-            .generator-img {
-                z-index: 99999;
-                background: url('../assets/generator-img.png');
-                width: 121px;
-                height: 100%;
-                margin-left: 30px;
-
-            }
-
-            #generator-2 {
-                background: url("../assets/generator-mirror-img.png");
-                margin-right: 30px;
-            }
-        }
-
-        .genset-card-both {
-            height: 324px;
-            width: 1280px;
-            /* border: 1px solid white; */
-            margin-top: -30px;
-            display: flex;
-            gap: 20px;
+            height: 385px;
             flex-direction: row;
+            justify-content: space-between;
+            gap: 30px;
+            margin-top: 20px;
 
-            .genset-card {
-                height: 324px;
-
+            .genset-card-route {
+                height: 385px;
                 width: 638px;
-                border-radius: 8px;
-                background: linear-gradient(73deg, rgba(0, 0, 0, 0.00) 50.21%, rgba(25, 152, 139, 0.20) 100%), #0A1517;
-                box-shadow: 0px 24px 47.4px 0px #305F5E;
                 display: flex;
                 flex-direction: column;
-                justify-content: space-evenly;
+                justify-content: space-between;
+                padding: 25px;
                 align-items: center;
 
-                .voltage-power-data-tables {
-                    width: 592px;
-                    height: 143px;
+                background: #030F0E;
+
+                .genset-icon-parameters-cards {
                     display: flex;
                     flex-direction: row;
-                    /* align-items: center; */
-                    /* margin-top: 55px; */
-                    /* margin-left: 20px; */
+                    flex-wrap: wrap;
+                    background: #030F0E;
+                    gap: 20px;
+                    justify-content: space-between;
+                    align-items: flex-end;
 
-                    .voltage-power-data-left,
-                    .voltage-power-data-right {
-                        width: 300px;
-                        border-radius: 8px 0px 0px 8px;
-                        background: var(--Primary, #062A30);
-                        /* display: flex; */
-                        /* flex-direction: row; */
-                        display: flex;
-                        flex-direction: row;
-                        align-items: center;
-                        justify-content: center;
-
-                        /* gap: 18px; */
-                        div {
-                            /* border: 1px solid white; */
-                            background: transparent;
-                        }
-
-                        .parameter-titles {
-                            width: 212px;
-                            height: 100px;
-                            /* background: transparent; */
-                            display: flex;
-                            flex-direction: column;
-                            justify-content: space-between;
-                            color: var(--S3, #DDD);
-                            font-feature-settings: 'clig' off, 'liga' off;
-                            opacity: 0.6;
-                            /* H5 */
-                            font-family: Poppins;
-                            font-size: 14px;
-                            font-style: normal;
-                            font-weight: 500;
-                            line-height: normal;
-
-                        }
-
-                        .parameter-values {
-                            height: 100px;
-                            width: 27px;
-                            display: flex;
-                            flex-direction: column;
-                            justify-content: space-between;
-                            color: var(--S3, #DDD);
-                            font-feature-settings: 'clig' off, 'liga' off;
-
-                            /* H5 */
-                            font-family: Poppins;
-                            font-size: 14px;
-                            font-style: normal;
-                            font-weight: 500;
-                            line-height: normal;
-                        }
-
-
+                    /* padding-bottom: 20px; */
+                    div {
+                        background: #030F0E;
+                        /* border: 1px solid white; */
                     }
 
-                    .voltage-power-data-right {
-                        border-radius: 0px 8px 8px 0px;
-                        background: var(--S1, #204D4C);
+                    .genset-img-generator {
+                        width: 140px;
+                        height: 100px;
+                        background: url("../assets/generator-img.png");
+                        background-size: cover;
+                        margin-right: 20px;
+                    }
+
+                    .parameter-card {
+                        width: 160px;
+                        height: fit-content;
+                        display: flex;
+                        flex-direction: row;
+                        gap: 12px;
+
+                        .parameter-stats {
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: space-between;
+
+                            .paramter-value {
+                                color: var(--Grey-1, #FFF);
+
+                                /* txt-lg/semi-bold */
+                                font-family: Poppins;
+                                font-size: 18px;
+                                font-style: normal;
+                                font-weight: 600;
+                                line-height: 28px;
+                                /* 155.556% */
+                            }
+
+                            .paramter-heading {
+                                color: var(--Antique-copper-5, var(--P2, #C37C5A));
+
+                                /* txt-xs/Medium */
+                                font-family: Poppins;
+                                font-size: 12px;
+                                font-style: normal;
+                                font-weight: 500;
+                                line-height: normal;
+                            }
+                        }
                     }
                 }
 
-                .running-time-pressure-parameters {
-                    width: 600px;
-                    height: 78px;
-                    /* border: 1px solid blue; */
+                .genset-stats-table {
                     display: flex;
                     flex-direction: row;
                     background: transparent;
 
-                    .parameter {
-                        background: transparent;
-                        flex: 1;
-                        border-right: 2px solid var(--S1, #204D4C);
+                    .table-left,
+                    .table-right {
+                        width: 302px;
+                        border-radius: 8px 0px 0px 8px;
+                        background: var(--Teal-8, #0A3D38);
                         display: flex;
-                        flex-direction: column;
-                        gap: 5px;
-                        /* align-items: center; */
+                        flex-direction: row;
+                        justify-content: space-between;
+                        gap: 10px;
 
                         div {
                             background: transparent;
+                        }
+
+                        padding: 20px;
+
+                        .stats-titles {
+                            color: var(--Grey-2, #CACCCC);
                             display: flex;
-                            /* align-items: ; */
-                            padding-left: 20px;
+                            flex-direction: column;
+                            gap: 20px;
+                            /* txt-sm/Medium */
+                            font-family: Poppins;
+                            font-size: 14px;
+                            font-style: normal;
+                            font-weight: 500;
+                            line-height: 22px;
+                            /* 157.143% */
                         }
 
-                        .parameter-title {
-                            color: var(--P2, #C37C5A);
-                            font-feature-settings: 'clig' off, 'liga' off;
-                        
-                            /* H6 */
+                        .stats-values {
+                            color: var(--Grey-1, #FFF);
+                            display: flex;
+                            flex-direction: column;
+                            gap: 20px;
+                            /* txt-sm/Medium */
                             font-family: Poppins;
-                            font-size: 12px;
+                            font-size: 14px;
                             font-style: normal;
-                            font-weight: 400;
-                            line-height: normal;
-                        }
-
-                        .parameter-value {
-                            color: var(--S3, #DDD);
-                            font-family: Poppins;
-                            font-size: 18px;
-                            font-style: normal;
-                            font-weight: 600;
-                            line-height: 28px;
-                            /* 155.556% */
+                            font-weight: 500;
+                            line-height: 22px;
+                            /* 157.143% */
                         }
                     }
-                    #lube-oil-pressure{
-                        /* border: 1px solid white; */
-                        padding: 0;
+
+                    .table-right {
+                        background: #0F5B53;
+                        border-radius: 0px 8px 8px 0px;
+
                     }
 
-                    #lube-oil-pressure {
-                        border-right: none;
-                        .parameter-title{
-                            font-size: 10px;
-                        }
+                }
+
+            }
+            #genset-2{
+                opacity: 0.2;
+                .genset-icon-parameters-cards{
+                    display: flex;
+                    flex-direction: row-reverse;
+                    .genset-img-generator{
+                        background: url("../assets/generator-mirror-img.png");
+                        background-size: cover;
                     }
                 }
             }
         }
 
     }
-    .bottom-graph-card{
-        margin-top: 50px;
-        width: 89vw;
-height: 120px;
-flex-shrink: 0;
-border-radius: 8px;
-background: #0A1517;   
-.genset-chart{
-    width: auto;
-    height: 220px;
-}
+
+    .bottom-graph-card {
+        margin-top: 150px;
+        width: 100%;
+        height: 223px;
+        flex-shrink: 0;
+        border-radius: 8px;
+        background: #0A1517;
+        /* border: 1px solid red; */
+        position: relative;
+
+        .genset-chart {
+            position: absolute;
+            width: 100%;
+            height: 220px;
+            background: #0A1517;
+
+        }
+
 
 
     }
 }
+
+/* .energy-flow{
+    animation: movelines 5s linear infinite;
+}
+
+@keyframes movelines{
+    0%{background-position: 0 0;}
+    100%{background-position: 100px 0;}
+} */

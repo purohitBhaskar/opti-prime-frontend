@@ -1,19 +1,10 @@
-import React, { useState } from 'react';
-import './SwitchButton.css'; // Import your CSS file for styling
+import { Switch } from '@chakra-ui/react'
+import React from 'react'
 
 const SwitchButton = () => {
-  const [isChecked, setIsChecked] = useState(false);
-
-  const handleToggle = () => {
-    setIsChecked(prevState => !prevState);
-  };
-
   return (
-    <label className="switch">
-      <input type="checkbox" checked={isChecked} onChange={handleToggle} />
-      <span className="slider round"></span>
-    </label>
-  );
-};
+    <Switch/>
+  )
+}
 
-export default SwitchButton;
+export default SwitchButton
