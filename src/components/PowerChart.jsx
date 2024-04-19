@@ -31,12 +31,15 @@ const PowerChart = () => {
     },
     layout:{
       padding:{
-        top:90,
-        right:10,
-        bottom:110,
-        left:10
+        // top:90,
+        // right:10,
+        // bottom:110,
+        // left:10
       }
     },
+    maintainAspectRatio: false, // Set maintainAspectRatio to false
+    aspectRatio: undefined, // Set aspectRatio to NaN
+    // height: 220, // Set the height of the chart
     scales:{
       x:{
         grid:{
@@ -69,10 +72,10 @@ const PowerChart = () => {
 
   return (
     <div style={{
-      width: '830px',
-      height: '247px',
+      width:"830px",
+      height:"247px"
     }}>
-      <Line data={data} options={options}/>
+      <Line data={data} options={options} style={{width:"100%"}}/>
     </div>
   );
 };

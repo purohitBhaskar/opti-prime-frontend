@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Link, Routes } from 'react-router-dom'
 import GensetChart from './GensetChart'
 import SwitchButton from './SwitchButton'
 import { Switch, Modal, ModalOverlay, ModalContent, ModalBody, ModalCloseButton } from '@chakra-ui/react'
+import energyVideo from "../assets/energy-flow.mp4"
 
 const MainContent = () => {
     const [isSwitchOn, setIsSwitchOn] = useState(false)
@@ -291,7 +292,7 @@ const MainContent = () => {
 
                     </div>
                     <div className="energy-flow">
-
+                          
                     </div>
                 </div>
             </div>

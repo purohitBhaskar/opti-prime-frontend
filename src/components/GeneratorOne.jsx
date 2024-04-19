@@ -1,11 +1,13 @@
-import React from 'react'
+import React,{useState} from 'react'
 import "../styles/GeneratorOne.css"
 // import SwitchButton from './SwitchButton'
 import renderLineChart from './PowerChart'
 import PowerChart from './PowerChart'
 import AlertsAccordion from './AlertsAccordion'
 import { Link } from 'react-router-dom'
+
 import { Switch, useStatStyles } from '@chakra-ui/react'
+import GensetChart from './GensetChart'
 const GeneratorOne = () => {
   const [buttonState, setButtonState] = useState(false) 
   const handleSwitchOn = ()=>{
@@ -119,6 +121,13 @@ const GeneratorOne = () => {
               </div>
             </div>
             <div className="graph-section-bottom">
+              <div className="graph-title-day-filter">
+                <div className="graph-title">Power Consumption</div>
+                <div className="day-filter">
+                  <div className="today-filter">Today</div>
+                  <div className="last-60-days">Last 60 days</div>
+                </div>
+              </div>
               <PowerChart className="line-chart" />
 
             </div>
